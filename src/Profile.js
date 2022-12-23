@@ -9,7 +9,8 @@ const Profile = () => {
     photos,
     setCurrentUserName,
     setCurrentPhoto,
-    currentUser
+    currentUser,
+    dbProfile
   } = useAuth();
 
   const navigate = useNavigate()
@@ -18,8 +19,9 @@ const Profile = () => {
     document.title = 'Netflix';
     if(!currentUser) {
       navigate('/signup')
+    } else{
+      dbProfile(currentUser.uid)
     }
-    console.log(currentUser);
   }, [])
   return (
     <div className='principal-login'>

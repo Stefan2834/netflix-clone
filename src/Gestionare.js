@@ -7,7 +7,7 @@ const Gestionare = () => {
   const {
     todos,
     photos,
-    setCurrentUser,
+    setCurrentUserName,
     setCurrentPhoto,
     currentUser
   } = useAuth()
@@ -27,7 +27,7 @@ const Gestionare = () => {
     {todos.map((todo, index) => {
       return (
         <div className='login-profile' key={index} onClick={() => {
-          setCurrentUser (todo);
+          setCurrentUserName(todo);
           setCurrentPhoto(photos[index]);
           RenderManage();
         }}>

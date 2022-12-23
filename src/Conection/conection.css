@@ -48,10 +48,13 @@
 .sign-connect {
     padding:8px 10px;
     background-color: red;
-    color:white;
     font-weight: 600;
     border-radius: 4px;
     cursor: pointer;
+}
+.sign-connect a {
+    color:white;
+    text-decoration: none;
 }
 .sign-main {
     width:100vw;

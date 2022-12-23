@@ -3,7 +3,7 @@ import React from 'react';
 import Signup from "./Conection/Signup";
 import Login from "./Conection/Login";
 import { AuthProvider } from "./AuthContext";
-import css from './Conection/conection.css'
+import './Conection/conection.css'
 
 const App = (props) => {
   return (

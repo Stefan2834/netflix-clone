@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from 'react'
 import { useAuth } from '../AuthContext';
+import { Link } from 'react-router-dom';
 
 export default function Signup() {
 
@@ -31,7 +32,7 @@ export default function Signup() {
             <div className='sign-logo' /> 
             <div className='sign-btn'>
                 <div className='sign-ro'>Romana</div>
-                <div className='sign-connect'>Conectare</div>
+                <div className='sign-connect'><Link to='/login'>Conectare</Link></div>
             </div>
         </div>
         <div className="sign-main">

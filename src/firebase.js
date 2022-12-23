@@ -11,7 +11,7 @@ const firebaseConfig = {
     messagingSenderId: "323115296033",
     appId: "1:323115296033:web:84ed8b51be53ea545fca60",
     measurementId: "G-JPB2DDGH6H",
-    databaseUrl: "https://netflix-2834-default-rtdb.europe-west1.firebasedatabase.app/"
+    databaseURL: "https://netflix-2834-default-rtdb.europe-west1.firebasedatabase.app/"
 };
 
 export const app = initializeApp(firebaseConfig);

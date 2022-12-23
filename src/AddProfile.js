@@ -4,12 +4,11 @@ import { useAuth } from './AuthContext';
 
 const AddProfile = () => {
   const [name, setName] = useState('');
-  const {todos, setTodos, setPhotos} = useAuth;
+  const {todos, dbAddProfile, currentUser} = useAuth();
   const addTodo = (e) => {
     e.preventDefault();
     if(todos.push() < 5) {
-      setTodos((t) => [...t,name ])
-      setPhotos((p) => [...p,'avatar/default.jpg'])
+      dbAddProfile(currentUser.uid, name, './avatar/default.jpg')
     }
     setName('');
     RenderDefault();
