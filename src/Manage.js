@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react'; 
 import { RenderDefault } from "./index";
-import { useAuth } from './AuthContext'; 
+import { useAuth } from './AuthContext';
+import { useNavigate } from 'react-router-dom'; 
 
 const Manage = () => {
   const {
@@ -8,10 +9,16 @@ const Manage = () => {
     currentPhoto,
     setCurrentUserName,
     setTodos,
-    setPhotos
+    setPhotos,
+    currentUser
   } = useAuth();
+
+  const navigate = useNavigate()
   useEffect(() => {
     document.title = 'Netflix';
+    if(!currentUser) {
+      navigate('/signup')
+    }
   }, [])
   const ProfileDelete = () => {
     setTodos((t) =>

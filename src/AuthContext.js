@@ -16,7 +16,7 @@ export function AuthProvider({children}) {
     const [loading,setLoading] = useState(true);
     const [error, setError] = useState('');
     const [todos, setTodos] = useLocalStorage('user',['Site','Creat de','Stefan']);
-    const [photos, setPhotos] = useLocalStorage('photos',['avatar/avatar1.jpg', 'avatar/avatar2.png', 'avatar/avatar3.jpg'])
+    const [photos, setPhotos] = useLocalStorage('photos',['../avatar/avatar1.jpg', '../avatar/avatar2.png', '../avatar/avatar3.jpg'])
     const [currentUserName, setCurrentUserName] = useLocalStorage('currentUser','');
     const [currentUser, setCurrentUser] = useState();
     const [currentPhoto, setCurrentPhoto] = useLocalStorage('currentPhoto','');

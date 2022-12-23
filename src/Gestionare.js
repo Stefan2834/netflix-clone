@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
-import React from 'react'; 
+import { Link, useNavigate } from "react-router-dom";
+import React, { useEffect } from 'react'; 
 import { RenderManage,RenderAdd } from "./index";
 import { useAuth } from "./AuthContext";
 
@@ -8,8 +8,16 @@ const Gestionare = () => {
     todos,
     photos,
     setCurrentUser,
-    setCurrentPhoto
+    setCurrentPhoto,
+    currentUser
   } = useAuth()
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if(!currentUser) {
+      navigate('/signup')
+    }
+  })
   return (
     <>
     <div className='principal-login'>
