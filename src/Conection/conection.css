@@ -1,0 +1,189 @@
+:root {
+    --bg:rgb(21, 21, 21);
+}
+.sign-page {
+    width:100vw;
+    height:800px;
+    background-image: url(../images/netflix-sign.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-blend-mode: darken;
+    background-color: rgba(0, 0, 0, 0.655);
+}
+.sign-bar {
+    width:100vw;
+    height:100px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(0deg, rgba(173,231,227,0) 0%, rgba(21,21,21,1) 100%)
+
+}
+.sign-logo {
+    background-image: url(../images/full-logo.png);
+    width:300px;
+    height:120px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.sign-btn {
+    width:230px;
+    height:80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    translate:-70px 0px;
+}
+.sign-ro {
+    padding:6px 12px;
+    background-color: black;
+    color:white;
+    font-size:16px;
+    border:1px solid white;
+    cursor: pointer;
+}
+.sign-connect {
+    padding:8px 10px;
+    background-color: red;
+    color:white;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.sign-main {
+    width:100vw;
+    height:calc(100% - 100px);
+    display: flex;
+    color:white;
+    align-items: center;
+    justify-content: center;
+}
+.sign-flex {
+    max-width: 700px;
+    height:500px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+    text-align: center;
+    translate: 0px -50px;
+}
+.sign-main-title {
+    font-size:50px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+}
+.sign-main-text {
+    font-size:26px;
+    font-family: 'Secular one', sans-serif;
+    font-weight: 500;
+}
+.sign-main-minitext {
+    font-size:20px;
+    font-family: 'Poppins', sans-serif;
+}
+.sign-form {
+    width:100%;
+}
+.sign-form-flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width:90%;
+    flex-direction: column;
+}
+.sign-email, .sign-pass {
+    width:calc(100% - 140px);
+    height:60px;
+    border: none;
+    padding:0 10px;
+    font-size:16px;
+    border-radius: 4px;
+    margin-bottom:10px;
+}
+.sign-email:focus, .sign-pass:focus {
+    outline:none;
+}
+.sign-email:focus::placeholder .sign-pass:focus::placeholder {
+    font-size:18px;
+    transform: translateY(-18px);
+}
+.sign-email::placeholder .sign-pass::placeholder {
+    transition: 400ms ease;
+    font-size:22px;
+    font-family: 'Poppins';
+}
+.sign-email-submit {
+    height:60px;
+    width:140px;
+    font-size:35px;
+    font-family: 'Noto sans serif',sans-serif;
+    font-weight: 600;
+    border:none;
+    color:white;
+    cursor: pointer;
+    border-radius: 4px;
+    background-color: red;
+}
+.sign-line {
+    width:100vw;
+    height:8px;
+    background-color: rgb(58, 58, 58);
+}
+.sign-tv {
+    width:100vw;
+    height:450px;
+    background-color:black;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.sign-tv-text {
+    width:40vw;
+    height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+}
+.sign-tv-title {
+    font-size:45px;
+    color:white;
+    font-weight: 600;
+    width:100%;
+}
+.sign-tv-subtitle {
+    font-size:26px;
+    color:white;
+    width:100%;
+}
+.sign-img {
+    width:30vw;
+    height:300px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.sign-tv-img {
+    background-image: url(images/tv.png);
+}
+.sign-phone-img {
+    background-image: url(images/mobile-0819.jpg);
+}
+.sign-oriunde-img {
+    background-image: url(images/device-pile.png);
+}
+.sign-copii-img {
+    background-image: url(images/AAAABeOMIfhGDUmqII9DfmXQvS5RmGO0SuEht6ws2fljaE7aCrDinQs5skNw_Iijgs23JkStaX8TaEz6PltuQPo0q02NUp70271ZAL5k.png);
+}
+.sign-error {
+    background-color: rgb(179, 65, 65);
+    color:white;
+    font-size:24px;
+    padding:8px 10px;
+    border-radius: 5px;
+    margin-top:10px;
+}
