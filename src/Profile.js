@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import { RenderMain,RenderAdd } from "./index.js";
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import { useAuth } from './AuthContext.js';
 
 const Profile = () => {
@@ -8,11 +8,18 @@ const Profile = () => {
     todos,
     photos,
     setCurrentUserName,
-    setCurrentPhoto
+    setCurrentPhoto,
+    currentUser
   } = useAuth();
+
+  const navigate = useNavigate()
 
   useEffect(() => {
     document.title = 'Netflix';
+    if(!currentUser) {
+      navigate('/signup')
+    }
+    console.log(currentUser);
   }, [])
   return (
     <div className='principal-login'>

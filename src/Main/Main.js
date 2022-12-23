@@ -3,13 +3,24 @@ import NavBar from './NavBar.js';
 import Footer from './Footer.js';
 import {filme} from './filmeDet';
 import { useAuth } from '../AuthContext.js';
+import { useNavigate } from 'react-router-dom';
 
 const Main = () => {
   const {
     currentUserName,
     list,
-    setList
+    setList,
+    currentUser
   } = useAuth();
+
+  const navigate = useNavigate()
+
+
+  useEffect(() => {
+    if(!currentUser) {
+      navigate('/signup')
+    }
+  }, [])
   const [film] = useState(filme);
   const addList = (name) => {
     if(!list.includes(name)) {
