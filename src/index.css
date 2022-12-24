@@ -1286,6 +1286,7 @@ i.fa-facebook-f, i.fa-instagram, i.fa-youtube {
   }
   .gest-bg {
     height:735px;
+    min-height:100vh;
   }
 }
 
@@ -1311,5 +1312,6 @@ i.fa-facebook-f, i.fa-instagram, i.fa-youtube {
   }
   .gest-bg {
     height:525px;
+    min-height: 100vh;
   }
 }
