@@ -741,7 +741,6 @@ body {
   left:0;
   transition: 1000ms ease;
   margin-bottom:100px;
-  overflow: hidden;
 }
 .film-text {
   position: absolute;
