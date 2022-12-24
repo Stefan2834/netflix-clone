@@ -9,6 +9,7 @@ export default function Login() {
 
   useEffect(() => {
     setError()
+    document.title = 'Login - Netflix'
   }, [])
 
   async function handleLogin (e) {

@@ -23,6 +23,7 @@ export default function Signup() {
 
     useEffect(() => {
         setError()
+        document.title = 'Signup - Netflix'
     }, [])
     
     return (

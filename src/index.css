@@ -1244,10 +1244,16 @@ i.fa-facebook-f, i.fa-instagram, i.fa-youtube {
     display: flex;
     align-items: center;
     justify-content: space-around;
-    top:40%;
+    top:45%;
   }
   .principal-login {
-    height:1650px;
+    height:1300px;
+    top:-30%;
+    position: absolute;
+  }
+  .principal-anim {
+    scale:0.7;
+    animation: none;
   }
   .login-profile {
     margin-bottom:50px;
@@ -1256,10 +1262,10 @@ i.fa-facebook-f, i.fa-instagram, i.fa-youtube {
     position:relative;
   }
   .choose {
-    top:9%;
+    top:0;
   }
   .gestionare {
-    bottom:300px;
+    bottom:0px;
   }
   .login-name-add {
     position: absolute;
