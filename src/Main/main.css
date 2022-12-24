@@ -253,4 +253,7 @@
         font-size:14px;
         left:140px;
     }
+    .nav-left a{
+        width: 200px;
+    }
 }
