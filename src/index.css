@@ -640,6 +640,7 @@ body {
   width:100vw;
   height:auto;
   padding-bottom:50px;
+  overflow: hidden;
 }
 .main-film-principal {
   width:100vw;
@@ -740,6 +741,7 @@ body {
   left:0;
   transition: 1000ms ease;
   margin-bottom:100px;
+  overflow: hidden;
 }
 .film-text {
   position: absolute;
