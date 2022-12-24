@@ -1251,9 +1251,13 @@ i.fa-facebook-f, i.fa-instagram, i.fa-youtube {
     top:-30%;
     position: absolute;
   }
+  @keyframes mini-anim {
+    from {scale:1.2;opacity:0.5}
+    to {scale:0.7;opacity:1}
+  }
   .principal-anim {
     scale:0.7;
-    animation: none;
+    animation: mini-anim 400ms ease;
   }
   .login-profile {
     margin-bottom:50px;
