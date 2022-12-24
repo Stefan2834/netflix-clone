@@ -1,10 +1,11 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useAuth } from '../AuthContext'
 import { Link } from 'react-router-dom'
 
 export default function Login() {
   const passRef = useRef()
   const emailRef = useRef()
+  const [loading, setLoading] = useState(false)
   const {login, error, setError} = useAuth()
 
   useEffect(() => {
@@ -16,11 +17,13 @@ export default function Login() {
 
     e.preventDefault()
     try {
+      setLoading(true)
       setError()
       await login(emailRef.current.value, passRef.current.value)
     } catch (err) {
       setError(err.message)
     }
+  setLoading(false)
   }
   return (
     <>
@@ -33,7 +36,7 @@ export default function Login() {
         <div className='log-title'>Conectare</div>
           <input type='email' ref={emailRef} className="log-email" required/>
           <input type='password' ref={passRef} className="log-pass" required/>
-          <input type='submit' value='Conectare' className='log-submit' />
+          <input disabled={loading} type='submit' value='Conectare' className='log-submit' />
           <div className='log-under'>
             <input type="checkbox" /><label className='log-check'>Tine-ma minte</label>
             <div className='log-help'>Ai nevoie de ajutor?</div>

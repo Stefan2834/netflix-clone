@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import { RenderMain,RenderAdd } from "./index.js";
 import {Link, useNavigate} from 'react-router-dom';
 import { useAuth } from './AuthContext.js';
@@ -10,17 +10,31 @@ const Profile = () => {
     setCurrentUserName,
     setCurrentPhoto,
     currentUser,
-    dbProfile
+    dbProfile,
+    setError
   } = useAuth();
 
+  const [loading, setLoading] = useState(false)
+
   const navigate = useNavigate()
+  async function DB () {
+      if(currentUser) {
+        try {
+          setLoading(true)
+          await dbProfile(currentUser.uid)
+        } catch (err) {
+          setError(err)
+        }
+      setLoading(false)
+    } 
+  }
 
   useEffect(() => {
     document.title = 'Netflix';
     if(!currentUser) {
       navigate('/signup')
-    } else{
-      dbProfile(currentUser.uid)
+    }else {
+      DB()
     }
   }, [])
   return (
@@ -42,7 +56,7 @@ const Profile = () => {
           )
         })}
         {todos.push() < 5 &&
-            <button type='button' onClick={() => {RenderAdd()}}className='login-profile-add'>
+            <button disabled={loading} type='button' onClick={() => {RenderAdd()}}className='login-profile-add'>
               <div className='add-circle'><div className='add-plus'></div></div>
               <div className='login-name login-name-add'>Adauga un profil</div>
             </button>

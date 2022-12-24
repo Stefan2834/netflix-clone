@@ -1,14 +1,18 @@
 import React, { useState} from 'react'; 
 import { RenderDefault } from './index';
 import { useAuth } from './AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const AddProfile = () => {
   const [name, setName] = useState('');
   const {todos, dbAddProfile, currentUser} = useAuth();
+  const navigate = useNavigate()
   const addTodo = (e) => {
     e.preventDefault();
     if(todos.push() < 5) {
       dbAddProfile(currentUser.uid, name, './avatar/default.jpg')
+    } else {
+      navigate('/')
     }
     setName('');
     RenderDefault();

@@ -42,7 +42,6 @@ export function AuthProvider({children}) {
         onValue(avatarRef, (snapshot) => {
             setPhotos(Object.values(snapshot.val()));
         })
-        console.log(todos)
     }
 
     async function dbAddProfile (userId, name, photo) {

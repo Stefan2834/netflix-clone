@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef, useEffect, useState } from 'react'
 import { useAuth } from '../AuthContext';
 import { Link } from 'react-router-dom';
 
@@ -6,6 +6,7 @@ export default function Signup() {
 
     const emailRef = useRef();
     const passRef = useRef();
+    const [loading, setLoading] = useState(false)
     const {
         signup,
         setError,
@@ -14,11 +15,13 @@ export default function Signup() {
     async function handleSignUp (e) {
         e.preventDefault()
         try {
+            setLoading(true)
             setError();
             await signup(emailRef.current.value, passRef.current.value)
         } catch (err) {
             setError(err);
         }
+        setLoading(false)
     }
 
     useEffect(() => {
@@ -44,7 +47,7 @@ export default function Signup() {
                 <form className='sign-form-flex' onSubmit={handleSignUp}>
                     <input className='sign-email' ref={emailRef} type='email' placeholder='Adresa de e-mail' />
                     <input className='sign-pass' ref={passRef} type='password' placeholder='Parola' />
-                    <input className="sign-email-submit" type='submit' value="Sign up" />
+                    <input disabled={loading} className="sign-email-submit" type='submit' value="Sign up" />
                 </form>
                 {error && (
                     <div className='sign-error'>{error}</div>
