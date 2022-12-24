@@ -32,9 +32,7 @@ const Gestionare = () => {
           RenderManage();
         }}>
           <img className='profile-img' src={photos[index]} alt={'Imagine'} />
-            <div className='pen'><button data-username={todo} className='gestionare-btn'>
-            <div className='login-border' />
-            </button></div>
+            <div className='login-border login-border-gest'><div className="pen"></div></div>
             <div className='login-name'>{todo}</div>
           </div>
         )
@@ -42,7 +40,7 @@ const Gestionare = () => {
       {todos.push() < 5 &&
           <button type='button' onClick={() => {RenderAdd()}}className='login-profile-add'>
             <div className='add-circle'><div className='add-plus'></div></div>
-            <div className='login-name'>Adauga un profil</div>
+            <div className='login-name login-name-add'>Adauga un profil</div>
           </button>
       }
     </div>

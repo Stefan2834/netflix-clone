@@ -252,7 +252,7 @@ body {
   position: absolute;
   width:150px;
   height:150px;
-  /* top:0; */
+  translate: 0 -155px;
   border-radius: 5px;
   cursor: pointer;
 }
@@ -519,7 +519,8 @@ body {
   position:absolute;
   width:150px;
   height:150px;
-  top:0;
+  top:0px;
+  left:0px;
   background-color: rgba(0, 0, 0, 0.425);
   background-image: url(images/pencil.svg);
   background-size: 50px 50px;
@@ -532,6 +533,9 @@ body {
   position: absolute;
   background-color: transparent;
   border: none;
+}
+.login-border-gest:hover .pen {
+  transform: translate(-8px,-8px);
 }
 
 
@@ -1261,6 +1265,9 @@ i.fa-facebook-f, i.fa-instagram, i.fa-youtube {
     translate: 0 40px;
   }
   .login-border {
-    translate: 0 -155px;
+    translate:0px -155px;
+  }
+  .back {
+    bottom:300px;
   }
 }
