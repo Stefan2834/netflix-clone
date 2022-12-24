@@ -32,8 +32,9 @@ const NavBar = () => {
   
   return (
     <div className='navbar'>
+    <div className='logo'></div>
+    <div className='nav-rasfoire'>Rasfoire</div>
     <div className='nav-left'>
-      <div className='logo'></div>
       <div className='nav-text active'><Link to='/'>Pagina principala</Link></div>
       <div className='nav-text'><Link to='/'>Seriale</Link></div>
       <div className='nav-text'><Link to='/'>Filme</Link></div>

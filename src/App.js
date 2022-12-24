@@ -4,6 +4,7 @@ import Signup from "./Conection/Signup";
 import Login from "./Conection/Login";
 import { AuthProvider } from "./AuthContext";
 import './Conection/conection.css'
+import './Main/main.css'
 
 const App = (props) => {
   return (
