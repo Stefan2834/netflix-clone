@@ -23,7 +23,7 @@ const NavBar = () => {
     try {
       setError()
       await logOut();
-      navigate('/signup')
+      navigate('/login')
     } catch (err) {
       setError(err)
     }

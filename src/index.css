@@ -208,6 +208,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: flex-start;
+  flex-wrap: wrap;
 }
 .login-profile, .login-profile-add {
   width:150px;
@@ -251,10 +252,11 @@ body {
   position: absolute;
   width:150px;
   height:150px;
-  top:0;
+  /* top:0; */
   border-radius: 5px;
   cursor: pointer;
 }
+
 .login-profile:hover .login-border,.login-profile-add:hover .login-border {
   border: 4px solid white;
   box-shadow: inset 0 0 2px white;
@@ -1223,4 +1225,42 @@ i.fa-facebook-f, i.fa-instagram, i.fa-youtube {
   font-size:12px;
   color:grey;
   cursor: default;
+}
+
+
+/* ----------Media queries---------- */
+
+
+@media screen and (max-width:850px){
+  .flex-login {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    top:40%;
+  }
+  .principal-login {
+    height:1650px;
+  }
+  .login-profile {
+    margin-bottom:50px;
+  }
+  .login-name {
+    position:relative;
+  }
+  .choose {
+    top:9%;
+  }
+  .gestionare {
+    bottom:300px;
+  }
+  .login-name-add {
+    position: absolute;
+    translate: 0 40px;
+  }
+  .login-border {
+    translate: 0 -155px;
+  }
 }
