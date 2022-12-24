@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import React, { useEffect } from 'react'; 
+import React, { useEffect, useState } from 'react'; 
 import { RenderManage,RenderAdd } from "./index";
 import { useAuth } from "./AuthContext";
 
@@ -9,13 +9,29 @@ const Gestionare = () => {
     photos,
     setCurrentUserName,
     setCurrentPhoto,
-    currentUser
+    currentUser,
+    dbProfile,
+    setError
   } = useAuth()
   const navigate = useNavigate()
+
+  const [loading, setLoading] = useState(true)
+
+  async function DB () {
+    try {
+      setLoading(true)
+      await dbProfile(currentUser.uid)
+    } catch (err) {
+      setError(err)
+    }
+  setLoading(false)
+}
 
   useEffect(() => {
     if(!currentUser) {
       navigate('/signup')
+    } else {
+      DB()
     }
   })
   return (
@@ -38,7 +54,7 @@ const Gestionare = () => {
         )
       })}
       {todos.push() < 5 &&
-          <button type='button' onClick={() => {RenderAdd()}}className='login-profile-add'>
+          <button disabled={loading} type='button' onClick={() => {RenderAdd()}}className='login-profile-add'>
             <div className='add-circle'><div className='add-plus'></div></div>
             <div className='login-name login-name-add'>Adauga un profil</div>
           </button>

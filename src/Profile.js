@@ -14,19 +14,17 @@ const Profile = () => {
     setError
   } = useAuth();
 
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
 
   const navigate = useNavigate()
   async function DB () {
-      if(currentUser) {
-        try {
-          setLoading(true)
-          await dbProfile(currentUser.uid)
-        } catch (err) {
-          setError(err)
-        }
-      setLoading(false)
-    } 
+      try {
+        setLoading(true)
+        await dbProfile(currentUser.uid)
+      } catch (err) {
+        setError(err)
+      }
+    setLoading(false)
   }
 
   useEffect(() => {
