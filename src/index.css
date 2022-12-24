@@ -1247,8 +1247,8 @@ i.fa-facebook-f, i.fa-instagram, i.fa-youtube {
     top:45%;
   }
   .principal-login {
-    height:1300px;
-    top:-30%;
+    height:1100px;
+    top:-20%;
     position: absolute;
   }
   @keyframes mini-anim {
@@ -1269,7 +1269,7 @@ i.fa-facebook-f, i.fa-instagram, i.fa-youtube {
     top:0;
   }
   .gestionare {
-    bottom:0px;
+    bottom:-100px;
   }
   .login-name-add {
     position: absolute;
