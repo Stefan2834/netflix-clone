@@ -24,7 +24,7 @@ const AddProfile = () => {
         <div className='add-icon'></div>
         <div className='add-form'>
           <form onSubmit={addTodo}>
-            <input type='text' value={name} onChange={(e) => setName(e.target.value)}className='add-input' placeholder='Numele' />
+            <input type='text' value={name} onChange={(e) => setName(e.target.value)}className='add-input' placeholder='Numele' required/>
             <input className='add-submit' type='submit' value='Continuare' />
           </form>
         </div>

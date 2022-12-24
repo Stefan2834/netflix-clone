@@ -256,6 +256,9 @@ body {
   border-radius: 5px;
   cursor: pointer;
 }
+.login-border-gest {
+  border:4px solid rgba(0, 0, 0, 0.425);
+}
 
 .login-profile:hover .login-border,.login-profile-add:hover .login-border {
   border: 4px solid white;
@@ -517,10 +520,11 @@ body {
 }
 .pen {
   position:absolute;
-  width:150px;
-  height:150px;
+  width:142px;
+  height:142px;
   top:0px;
   left:0px;
+  /* transform: translate(-4px -4px); */
   background-color: rgba(0, 0, 0, 0.425);
   background-image: url(images/pencil.svg);
   background-size: 50px 50px;
@@ -533,9 +537,6 @@ body {
   position: absolute;
   background-color: transparent;
   border: none;
-}
-.login-border-gest:hover .pen {
-  transform: translate(-8px,-8px);
 }
 
 

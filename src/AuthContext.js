@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { db } from './firebase';
 import { onValue, ref, set, push } from 'firebase/database';
 import useLocalStorage  from './useLocalStorage'
+import { RenderDefault } from '.';
 
 
 export const AuthContext = createContext();
@@ -69,6 +70,7 @@ export function AuthProvider({children}) {
         return await createUserWithEmailAndPassword(auth, email, password)
         .then(info => {
             writeUserData(email,password,info.user.uid)
+            RenderDefault()
             navigate('/')
         }).catch((err) => {
             setError(err.message);
@@ -78,6 +80,7 @@ export function AuthProvider({children}) {
     async function login (email, password) {
         return await signInWithEmailAndPassword(auth, email, password)
         .then(info => {
+            RenderDefault()
             navigate('/')
         }).catch((err) => {
             setError(err.message);
