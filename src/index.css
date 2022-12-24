@@ -1281,6 +1281,12 @@ i.fa-facebook-f, i.fa-instagram, i.fa-youtube {
   .back {
     bottom:-100px;
   }
+  .gest-name {
+    scale:0.7
+  }
+  .gest-bg {
+    height:735px;
+  }
 }
 
 @media screen and (max-width:600px) {
@@ -1296,5 +1302,14 @@ i.fa-facebook-f, i.fa-instagram, i.fa-youtube {
   .add-flex {
     width:100%;
     flex-direction: center;
+  }
+}
+
+@media screen and (max-width:550px) {
+  .gest-name {
+    scale:0.5
+  }
+  .gest-bg {
+    height:525px;
   }
 }
