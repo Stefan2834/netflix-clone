@@ -14,8 +14,17 @@ const Gestionare = () => {
     setError
   } = useAuth()
   const navigate = useNavigate()
-
   const [loading, setLoading] = useState(true)
+
+
+
+  useEffect(() => {
+    if(!currentUser) {
+      navigate('/signup')
+    } else {
+      DB()
+    }
+  }, [])
 
   async function DB () {
     try {
@@ -24,16 +33,8 @@ const Gestionare = () => {
     } catch (err) {
       setError(err)
     }
-  setLoading(false)
-}
-
-  useEffect(() => {
-    if(!currentUser) {
-      navigate('/signup')
-    } else {
-      DB()
-    }
-  })
+    setLoading(false)
+  }
   return (
     <>
     <div className='principal-login'>
@@ -54,7 +55,7 @@ const Gestionare = () => {
         )
       })}
       {todos.push() < 5 &&
-          <button disabled={loading} type='button' onClick={() => {RenderAdd()}}className='login-profile-add'>
+          <button disabled={loading} type='button' onClick={RenderAdd}className='login-profile-add'>
             <div className='add-circle'><div className='add-plus'></div></div>
             <div className='login-name login-name-add'>Adauga un profil</div>
           </button>

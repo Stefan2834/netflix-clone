@@ -781,7 +781,7 @@ body {
 }
 .film {
   width:14.7vw;
-  height:calc(14.7vw * 9 / 16);
+  aspect-ratio: 16/9;
   margin-right:0.5vw;
   transition: 400ms ease;
   cursor: pointer;
@@ -1074,7 +1074,22 @@ i.fa-facebook-f, i.fa-instagram, i.fa-youtube {
 
 /* ----------Media queries---------- */
 
-
+@media screen and (max-width:1200px) {
+  .film {
+    width:18.4vw;
+  }
+  .film-flex {
+    width: 300vw;
+  }
+}
+@media screen and (max-width:1000px) {
+  .film {
+    width:23vw;
+  }
+  .film-flex {
+    width:350vw;
+  }
+}
 @media screen and (max-width:850px){
   .flex-login {
     flex-direction: column;
@@ -1152,5 +1167,13 @@ i.fa-facebook-f, i.fa-instagram, i.fa-youtube {
   .gest-bg {
     height:525px;
     min-height: 100vh;
+  }
+}
+@media screen and (max-width:450px) {
+  .film {
+    width:30.66vw;
+  }
+  .film-flex {
+    width:500vw;
   }
 }

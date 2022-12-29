@@ -8,9 +8,8 @@ const Manage = () => {
     currentUserName,
     currentPhoto,
     setCurrentUserName,
-    setTodos,
-    setPhotos,
-    currentUser
+    currentUser,
+    dbDeleteProfile,
   } = useAuth();
 
   const navigate = useNavigate()
@@ -20,14 +19,8 @@ const Manage = () => {
       navigate('/signup')
     }
   }, [])
-  const ProfileDelete = () => {
-    setTodos((t) =>
-      t.filter((todos) => todos.indexOf(currentUserName))
-    );
-    setPhotos((p) =>
-      p.filter((photos) => photos.indexOf(currentPhoto))
-    );
-    RenderDefault();
+  function deleteProfile () {
+    dbDeleteProfile(currentUser.uid,currentUserName, currentPhoto)
   }
   return (
     <>
@@ -70,7 +63,7 @@ const Manage = () => {
       <div className='gest-flex-btn'>
         <button onClick={RenderDefault}className='gest-save'>Salvare</button>
         <button onClick={RenderDefault}className='gest-anulare'>Inapoi</button>
-        <div onClick={ProfileDelete} className='gest-sterge'>Stergerea profilului</div>
+        <div onClick={deleteProfile} className='gest-sterge'>Stergerea profilului</div>
       </div>
       </div>
     </div>

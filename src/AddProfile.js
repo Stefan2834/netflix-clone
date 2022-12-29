@@ -17,6 +17,7 @@ const AddProfile = () => {
     setName('');
     RenderDefault();
   } 
+  console.log(todos.includes([name]))
   return (
     <div className='add-profile'>
       <div className='add-flex'>

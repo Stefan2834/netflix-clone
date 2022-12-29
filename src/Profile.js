@@ -54,7 +54,7 @@ const Profile = () => {
           )
         })}
         {todos.push() < 5 &&
-            <button disabled={loading} type='button' onClick={() => {RenderAdd()}}className='login-profile-add'>
+            <button disabled={loading} type='button' onClick={RenderAdd}className='login-profile-add'>
               <div className='add-circle'><div className='add-plus'></div></div>
               <div className='login-name login-name-add'>Adauga un profil</div>
             </button>
