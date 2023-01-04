@@ -35,35 +35,43 @@ export function AuthProvider({children}) {
     async function dbProfile (userId) {
         const profileRef = ref(db, 'users/' + userId + '/profile/')
         onValue(profileRef, (snapshot) => {
-            if(snapshot.val() != undefined) {
+            if(snapshot.val() !== null) {
                 setTodos(Object.values(snapshot.val()));
-            } else {
-                setTodos([])
             }
         }) 
         const avatarRef = ref(db, 'users/' + userId + '/avatar/')
         onValue(avatarRef, (snapshot) => {
-            if(snapshot.val() != undefined) {
+            if(snapshot.val() !== null) {
                 setPhotos(Object.values(snapshot.val()));
-            } else {
-                setTodos([])
             }
         })
     }
     async function dbAddProfile (userId, name, photo) {
         const addProfileRef = ref(db, 'users/' + userId + '/profile/')
         const newAddProfileRef = push(addProfileRef)
-        await set(newAddProfileRef, [name])
+        try {
+            await set(newAddProfileRef, [name])
+        } catch (err) {
+            setError(err)
+        }
 
 
         const addAvatarRef = ref(db, 'users/' + userId + '/avatar/')
         const newAddAvatarRef = push(addAvatarRef)
-        await set(newAddAvatarRef, [photo])
+        try {
+            await set(newAddAvatarRef, [photo])
+        } catch(err) {
+            setError(err)
+        }
         navigate('/')
     }
     async function dbDeleteProfile (userId,name, photo) {
         const deleteProfileRef = ref(db, 'users/' + userId + '/profile/');
         const deleteAvatarRef = ref(db, 'users/' + userId + '/avatar/');
+        if(todos.length === 1 && photos.length === 1) {
+            setTodos([])
+            setPhotos([])
+        }
         onValue(deleteProfileRef, (snapshot) => {
             snapshot.forEach((childSnapshot) => {
                 const profileKey = childSnapshot.key;

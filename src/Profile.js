@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState } from 'react';
 import { RenderMain,RenderAdd } from "./index.js";
 import {Link, useNavigate} from 'react-router-dom';
 import { useAuth } from './AuthContext.js';
@@ -17,7 +17,7 @@ const Profile = () => {
   const [loading, setLoading] = useState(true)
 
   const navigate = useNavigate()
-  async function DB () {
+  async function getTodos () {
       try {
         setLoading(true)
         await dbProfile(currentUser.uid)
@@ -31,10 +31,11 @@ const Profile = () => {
     document.title = 'Netflix';
     if(!currentUser) {
       navigate('/signup')
-    }else {
-      DB()
+    } else {
+      getTodos()
     }
   }, [])
+
   return (
     <div className='principal-login'>
       <div className='principal-anim'>
