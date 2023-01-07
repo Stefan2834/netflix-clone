@@ -1290,6 +1290,10 @@ i.fa-facebook-f, i.fa-instagram, i.fa-youtube {
     height:735px;
     min-height:100vh;
   }
+  .gest-bg {
+    height:735px;
+    min-height:100vh;
+  }
   .set-flex-text {
     height:50px;
     margin-left: 0px;
@@ -1356,6 +1360,10 @@ i.fa-facebook-f, i.fa-instagram, i.fa-youtube {
   .gest-anim {
     height:525px;
     min-height: 100vh;
+  }
+  .gest-bg {
+    height:525px;
+    min-height:100vh;
   }
   .set-bar {
     padding:0;
