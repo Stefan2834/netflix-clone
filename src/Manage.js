@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react'; 
-import { RenderDefault } from "./index";
+import { RenderDefault,RenderImage } from "./index";
 import { useAuth } from './AuthContext';
 import { useNavigate } from 'react-router-dom'; 
 
@@ -25,10 +25,12 @@ const Manage = () => {
   return (
     <>
     <div className='gest-bg'>
+    <div className='gest-anim'>
       <div className='gest-name'>Editarea profilului
         <div className='gest-line' />
         <div className='gest-icon'>
-        <img className='gest-image'src={currentPhoto} alt={'Imagine'} />
+          <div className='gest-img-change' onClick={RenderImage}/>
+          <img className='gest-image'src={currentPhoto} alt={'Imagine'} />
         </div>
         <div className='gest-input-name'>
           <form>
@@ -66,6 +68,7 @@ const Manage = () => {
         <div onClick={deleteProfile} className='gest-sterge'>Stergerea profilului</div>
       </div>
       </div>
+    </div>
     </div>
     </>
   )

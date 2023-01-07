@@ -3,7 +3,7 @@ import React, { createContext, useContext, useEffect, useState } from 'react'
 import {auth} from "./firebase";
 import { useNavigate } from 'react-router-dom';
 import { db } from './firebase';
-import { onValue, ref, set, push, remove} from 'firebase/database';
+import { onValue, ref, set, push, remove, update} from 'firebase/database';
 import useLocalStorage  from './useLocalStorage'
 import { RenderDefault } from '.';
 
@@ -97,6 +97,24 @@ export function AuthProvider({children}) {
         navigate('/')
         RenderDefault()
     }
+    async function dbChangePhoto (userId,photo,currentPhoto) {
+        const changePhotoRef = ref(db, 'users/' + userId + '/avatar/')
+        onValue(changePhotoRef, (snapshot) => {
+            snapshot.forEach((childSnapshot) => {
+                const avatarKey = childSnapshot.key;
+                const avatarData = childSnapshot.val();
+                if(avatarData[0] === currentPhoto[0]) {
+                    const updates = {};
+                    updates['users/' + userId + '/avatar/' + avatarKey + '/'] = [photo];
+                    return update(ref(db), updates)
+                }
+            });
+        }, {
+            onlyOnce:true
+        })
+        navigate('/')
+        RenderDefault()
+    }
     async function writeUserData(email,password,userId) {
         const reference = ref(db, 'users/' + userId + '/');
         await set(reference, {
@@ -138,7 +156,7 @@ export function AuthProvider({children}) {
         todos, setTodos,
         photos, setPhotos,
         list, setList,
-        dbProfile, dbAddProfile,dbDeleteProfile
+        dbProfile, dbAddProfile,dbDeleteProfile, dbChangePhoto
     }
   return (
     <AuthContext.Provider value={value}>

@@ -7,6 +7,7 @@ import AddProfile from './AddProfile.js'
 import Gestionare from './Gestionare.js'
 import Manage from './Manage.js'
 import Main from './Main/Main.js'
+import Image from './SetImage.js'
 
 
 
@@ -27,5 +28,8 @@ export const RenderManage = () => {
 }
 export const RenderMain = () => {
   root.render(<App render={Main} manage={Gestionare}/>);
+}
+export const RenderImage = () => {
+  root.render(<App render={Profile} manage={Image}/>);
 }
 RenderDefault();

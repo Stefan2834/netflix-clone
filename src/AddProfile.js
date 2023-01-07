@@ -14,14 +14,14 @@ const AddProfile = () => {
     const flatPhotos = [].concat.apply([], photos)
     if(!flatPhotos.includes('./avatar/default.jpg')) {
       setImg('./avatar/default.jpg')
-    } else if(!flatPhotos.includes('./avatar/avatar1.jpg')) {
-      setImg('./avatar/avatar1.jpg')
-    } else if(!flatPhotos.includes('./avatar/avatar2.png')) {
-      setImg('./avatar/avatar2.png')
-    } else if(!flatPhotos.includes('./avatar/avatar3.jpg')) {
-      setImg('./avatar/avatar3.jpg')
-    } else if(!flatPhotos.includes('./avatar/avatar4.png')) {
-      setImg('./avatar/avatar4.png')
+    } else if(!flatPhotos.includes('./avatar/default1.jpg')) {
+      setImg('./avatar/default1.jpg')
+    } else if(!flatPhotos.includes('./avatar/default2.jpg')) {
+      setImg('./avatar/default2.jpg')
+    } else if(!flatPhotos.includes('./avatar/default3.jpg')) {
+      setImg('./avatar/default3.jpg')
+    } else if(!flatPhotos.includes('./avatar/default4.jpg')) {
+      setImg('./avatar/default4.jpg')
     } 
   }
 
@@ -31,7 +31,8 @@ const AddProfile = () => {
   
   const addTodo = (e) => {
     e.preventDefault();
-    if(todos.push() < 5) {
+    const flatProfile = [].concat.apply([], todos)
+    if(todos.push() < 5 && !flatProfile.includes(name)) {
       dbAddProfile(currentUser.uid, name, img)
     } else {
       navigate('/')
