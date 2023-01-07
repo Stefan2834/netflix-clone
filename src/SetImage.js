@@ -4,6 +4,7 @@ import { useAuth } from './AuthContext';
 
 export default function Image() {
     const {
+        setCurrentPhoto,
         currentUserName,
         currentPhoto,
         photos,
@@ -25,6 +26,7 @@ export default function Image() {
     const photoChange = async (photo) => {
         try {
             await dbChangePhoto (currentUser.uid,photo,currentPhoto)
+            setCurrentPhoto(photo)
         } catch (err){
             setError(err)
         }
