@@ -1241,8 +1241,7 @@ i.fa-facebook-f, i.fa-instagram, i.fa-youtube {
 }
 @media screen and (max-width:850px){
   .flex-login {
-    flex-direction: column;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     height: auto;
     display: flex;
     align-items: center;
@@ -1250,7 +1249,7 @@ i.fa-facebook-f, i.fa-instagram, i.fa-youtube {
     top:45%;
   }
   .principal-login {
-    height:1120px;
+    height:1000px;
     top:-20%;
     position: absolute;
   }
