@@ -25,8 +25,8 @@ const Main = () => {
   useEffect(() => {
     if(!currentUser) navigate('/signup')
   }, [])
+  let itemScreen = 0;
   getItemScreen()
-  let itemScreen
   function getItemScreen () {
     if(window.innerWidth >= 1200) {
       itemScreen = 6;
@@ -40,7 +40,6 @@ const Main = () => {
       itemScreen = 2;
     }
   }
-  window.onresize(getItemScreen)
   let count = [0,0,0]
   function onHandleClick(data,index,slider) {
     let maxSlide = Movie[0].length / itemScreen;
