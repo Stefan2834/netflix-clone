@@ -25,17 +25,29 @@ const Main = () => {
   useEffect(() => {
     if(!currentUser) navigate('/signup')
   }, [])
+  getItemScreen()
+  let itemScreen
+  function getItemScreen () {
+    if(window.innerWidth >= 1200) {
+      itemScreen = 6;
+    } else if (window.innerWidth >= 1000) {
+      itemScreen = 5 
+    } else if (window.innerWidth >= 800) {
+      itemScreen = 4;
+    } else if (window.innerWidth >= 500) {
+      itemScreen = 3;
+    } else {
+      itemScreen = 2;
+    }
+  }
+  window.onresize(getItemScreen)
   let count = [0,0,0]
   function onHandleClick(data,index,slider) {
-    let itemScreen = 6;
     let maxSlide = Movie[0].length / itemScreen;
     if(data === 'right') {
       count[index] += 1;
     } else if (data === 'left') {
       count[index] -= 1
-    }
-    if(parseInt(count[index]) !== count[index]) {
-
     }
     if(count[index] < 0) {
       count[index] = maxSlide - 1;

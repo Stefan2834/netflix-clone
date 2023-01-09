@@ -18,7 +18,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 
 
 export const RenderDefault = () => {
-  root.render(<App render={Profile} manage={Gestionare} />) 
+  root.render(<App render={Main} manage={Gestionare} />) 
 }
 export const RenderAdd = () => {
   root.render(<App render={AddProfile} manage={AddProfile} />)
