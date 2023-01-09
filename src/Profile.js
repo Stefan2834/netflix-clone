@@ -11,7 +11,8 @@ const Profile = () => {
     setCurrentPhoto,
     currentUser,
     dbProfile,
-    setError
+    setError,
+    dbFilme
   } = useAuth();
 
   const [loading, setLoading] = useState(true)
@@ -33,6 +34,7 @@ const Profile = () => {
       navigate('/signup')
     } else {
       getTodos()
+      dbFilme()
     }
   }, [])
 

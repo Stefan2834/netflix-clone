@@ -1,99 +1,52 @@
-import React, {useEffect, useState, useRef} from 'react'; 
+import React, {useEffect, useRef, useState} from 'react'; 
 import NavBar from './NavBar.js';
 import Footer from './Footer.js';
-import {filme} from './filmeDet';
 import { useAuth } from '../AuthContext.js';
 import { useNavigate } from 'react-router-dom';
+import narcos from '../filme/narcos.jpg'
 
 const Main = () => {
   const {
     currentUserName,
-    list,
-    setList,
-    currentUser
+    // list,
+    // setList,
+    // filme,
+    currentUser,
+    // todos
   } = useAuth();
-
   const navigate = useNavigate()
-
-
+  const slider = useRef()
+  const Movie = useState([
+    'onoarea','lege','pat','a',
+    'onoarea','lege','pat','a',
+    'onoarea','lege','pat','a',
+    'onoarea','lege'
+  ])
   useEffect(() => {
-    if(!currentUser) {
-      navigate('/signup')
-    }
+    if(!currentUser) navigate('/signup')
   }, [])
-  const [film] = useState(filme);
-  const addList = (name) => {
-    if(!list.includes(name)) {
-      setList((l) => [...l,name])
-    } else {
-      setList((l) => l.filter((list) => list.indexOf(name)))
+  let count = [0,0,0]
+  function onHandleClick(data,index,slider) {
+    let itemScreen = 6;
+    let maxSlide = Movie[0].length / itemScreen;
+    if(data === 'right') {
+      count[index] += 1;
+    } else if (data === 'left') {
+      count[index] -= 1
     }
-  }
-  useEffect(() => {
-    document.title = 'Pagina principala - Netflix';
-  }, [])
-  var film1 = 0;
-  var film2 = 0;
-  var film3 = 0;
-  const filmFlex1 = useRef();
-  const filmFlex2 = useRef();
-  const filmFlex3 = useRef();
-  const rightFilm1 = (nr) => {
-    film1 += 1;
-    if(film1 <= 1) {
-      nr.current.style.left = - film1 * 90.5 + 'vw' ;
-    } else if(film1 === 2) {
-      nr.current.style.left = '-121vw';
-    } else {
-      film1 -= 1;
-    }
-  }
-  const leftFilm1 = (nr) => {
-    film1 -= 1;
-    if (film1 >= 0) {
-      nr.current.style.left = - film1 * 90.5 + 'vw';
-    } else {
-      film1 += 1;
-    }
-  }
-  const rightFilm2 = (nr) => {
-    film2 += 1;
-    if(film2 <= 1) {
-      nr.current.style.left = - film2 * 90.5 + 'vw' ;
-    } else if(film2 === 2) {
-      nr.current.style.left = '-121vw';
-    } else {
-      film2 -= 1;
-    }
+    if(parseInt(count[index]) !== count[index]) {
 
-  }
-  const leftFilm2 = (nr) => {
-    film2 -= 1;
-    if (film2 >= 0) {
-      nr.current.style.left = - film2 * 90.5 + 'vw';
-    } else {
-      film2 += 1;
     }
-  }
-  const rightFilm3 = (nr) => {
-    film3 += 1;
-    if(film3 <= 1) {
-      nr.current.style.left = - film3 * 90.5 + 'vw' ;
-    } else if(film3 === 2) {
-      nr.current.style.left = '-121vw';
-    } else {
-      film3 -= 1;
+    if(count[index] < 0) {
+      count[index] = maxSlide - 1;
+    } else if(count[index] > maxSlide - 1 && count[index] < maxSlide) {
+      count[index] =  count[index] + (maxSlide - parseInt(maxSlide)) - 1
+    } else if(count[index] >= maxSlide) {
+      count[index] = 0;
     }
-
+    document.documentElement.style.setProperty(slider, count[index])
   }
-  const leftFilm3 = (nr) => {
-    film3 -= 1;
-    if (film3 >= 0) {
-      nr.current.style.left = - film3 * 90.5 + 'vw';
-    } else {
-      film3 += 1;
-    }
-  } 
+  
   return (
     <div className='main-bg'>
       <NavBar />
@@ -109,140 +62,99 @@ const Main = () => {
         </div>
       </div>
       <>
-      <div className='film-right' onClick={() => {rightFilm1 (filmFlex1)}}><i className="fa-solid fa-chevron-down" style={{rotate:"-90deg"}}  /></div>
-      <div className='film-left' onClick={() => {leftFilm1 (filmFlex1)}}><i className="fa-solid fa-chevron-down" style={{rotate:"90deg"}}  /></div>
-      <div className='film-text'>Populare acum</div>
-      <div className='film-flex' ref={filmFlex1}>
-
-
-
-
-      {film.map((filme, index) => {
-        return (
-          <div className='film' key={index} data-name={filme} >
-            <img src={film[index].poza} alt={'Image'} className='film-poza' />
-          <div className='film-detali'>
-            <div className='film-detali-flex'>
-              <div className='film-detali-btn-flex'>
-                <div className='film-detali-btn-play'><i className="fa-solid fa-play" /></div>
-                {!list.includes(film[index].name) ?
-                  (
-                  <div className='film-detali-btn-list' onClick={() => {addList(film[index].name)}}><i className="fa-solid fa-plus" />
-                    <div className='film-list-info'>Adaugare in Lista mea</div>
-                  </div>
-                ): (
-                  <div className='film-detali-btn-list' onClick={() => {addList(film[index].name)}}><i className="fa-solid fa-check" />
-                    <div className='film-list-info'>Stergere din Lista mea</div>
-                  </div>
-                )
-                }
-                <div className='film-detali-btn-like'><i className="fa-regular fa-thumbs-up" /></div>
-                <div className='film-detali-btn-info'><i className="fa-solid fa-chevron-down" />
-                  <div className='film-ep-info'>Episoade si informatii</div>
-                </div>
-              </div>
-              <div className='film-detali-text'>
-                <span className='film-concordanta'>Nou</span>
-                <span className='film-varsta'>{film[index].varsta}</span>
-                <span className='film-sez'>{film[index].sezoane} sezoane</span>
-                <div className='film-hd'>HD</div>
-              </div>
-              <div className='film-detali-tip'>{film[index].detalii[0]}<span className='film-pct'> • </span> {film[index].detalii[1]} <span className='film-pct'> • </span>{film[index].detalii[2]}</div>
-            </div>
-          </div>
+      <div className="film-row">
+        <div className="film-header">
+          <div className="film-title">Sugestii pentru {currentUserName}</div>
+          <div className="film-progress-bar"></div>
         </div>
-        )})}
+        <div className="film-container">
+          <button className="film-handle film-left-handle"
+          onClick={() => {onHandleClick('left',0,'--slider-index1')}}
+          >
+            <div className="film-text"><i className='fa-solid fa-chevron-left' /></div>
+          </button>
+          <div className="film-slider slider1"
+          ref={slider}
+          >
+          {Movie[0].map((mov, index) => {
+            return (
+                <img src={narcos} key={index}
+                alt="test"
+                className='film-img' 
+                />
+                )
+              })}
+          </div>
+          <button className="film-handle film-right-handle" 
+          onClick={() => {onHandleClick('right',0,'--slider-index1')}}
+          >
+            <div className="film-text"><i className='fa-solid fa-chevron-right' /></div>
+          </button>
+        </div>
       </div>
       </>
-
-
-
       <>
-      <div className='film-right' onClick={() => {rightFilm2 (filmFlex2)}}><i className="fa-solid fa-chevron-down"style={{rotate:"-90deg"}} /></div>
-      <div className='film-left' onClick={() => {leftFilm2 (filmFlex2)}}><i className="fa-solid fa-chevron-down"style={{rotate:"90deg"}} /></div>
-      <div className='film-text'>Doar pe Netflix</div>
-      <div className='film-flex' ref={filmFlex2}>
-      {film.map((filme, index) => {
-        return (
-          <div className='film' key={index} data-name={filme} >
-            <img src={film[index].poza} alt={'Image'} className='film-poza' />
-          <div className='film-detali'>
-            <div className='film-detali-flex'>
-              <div className='film-detali-btn-flex'>
-                <div className='film-detali-btn-play'><i className="fa-solid fa-play" /></div>
-                {!list.includes(film[index].name) ?
-                  (
-                  <div className='film-detali-btn-list' onClick={() => {addList(film[index].name)}}><i className="fa-solid fa-plus" />
-                    <div className='film-list-info'>Adaugare in Lista mea</div>
-                  </div>
-                ): (
-                  <div className='film-detali-btn-list' onClick={() => {addList(film[index].name)}}><i className="fa-solid fa-check" />
-                    <div className='film-list-info'>Stergere din Lista mea</div>
-                  </div>
-                )
-                }
-                <div className='film-detali-btn-like'><i className="fa-regular fa-thumbs-up" /></div>
-                <div className='film-detali-btn-info'><i className="fa-solid fa-chevron-down" />
-                  <div className='film-ep-info'>Episoade si informatii</div>
-                </div>
-              </div>
-              <div className='film-detali-text'>
-                <span className='film-concordanta'>Nou</span>
-                <span className='film-varsta'>{film[index].varsta}</span>
-                <span className='film-sez'>{film[index].sezoane} sezoane</span>
-                <div className='film-hd'>HD</div>
-              </div>
-              <div className='film-detali-tip'>{film[index].detalii[0]}<span className='film-pct'> • </span> {film[index].detalii[1]} <span className='film-pct'> • </span>{film[index].detalii[2]}</div>
-            </div>
-          </div>
+      <div className="film-row">
+        <div className="film-header">
+          <div className="film-title">Sugestii pentru {currentUserName}</div>
+          <div className="film-progress-bar"></div>
         </div>
-        )})}
+        <div className="film-container">
+          <button className="film-handle film-left-handle"
+          onClick={() => {onHandleClick('left',1,'--slider-index2')}}
+          >
+            <div className="film-text"><i className='fa-solid fa-chevron-left' /></div>
+          </button>
+          <div className="film-slider slider2"
+          ref={slider}
+          >
+          {Movie[0].map((mov, index) => {
+            return (
+                <img src={narcos} 
+                alt="test"
+                className='film-img' 
+                />
+                )
+              })}
+          </div>
+          <button className="film-handle film-right-handle" 
+          onClick={() => {onHandleClick('right',1,'--slider-index2')}}
+          >
+            <div className="film-text"><i className='fa-solid fa-chevron-right' /></div>
+          </button>
+        </div>
       </div>
       </>
-
-
-
-      
       <>
-      <div className='film-right' onClick={() => {rightFilm3 (filmFlex3,film3)}}><i className="fa-solid fa-chevron-down"style={{rotate:"-90deg"}}  /></div>
-      <div className='film-left' onClick={() => {leftFilm3 (filmFlex3,film3)}}><i className="fa-solid fa-chevron-down"style={{rotate:"90deg"}} /></div>
-      <div className='film-text'>Sugestii pentru {currentUserName}</div>
-      <div className='film-flex' ref={filmFlex3}>
-      {film.map((filme, index) => {
-        return (
-          <div className='film' key={index} data-name={filme} >
-            <img src={film[index].poza} alt={'Image'} className='film-poza' />
-          <div className='film-detali'>
-            <div className='film-detali-flex'>
-              <div className='film-detali-btn-flex'>
-                <div className='film-detali-btn-play'><i className="fa-solid fa-play" /></div>
-                {!list.includes(film[index].name) ?
-                  (
-                  <div className='film-detali-btn-list' onClick={() => {addList(film[index].name)}}><i className="fa-solid fa-plus" />
-                    <div className='film-list-info'>Adaugare in Lista mea</div>
-                  </div>
-                ): (
-                  <div className='film-detali-btn-list' onClick={() => {addList(film[index].name)}}><i className="fa-solid fa-check" />
-                    <div className='film-list-info'>Stergere din Lista mea</div>
-                  </div>
-                )
-                }
-                <div className='film-detali-btn-like'><i className="fa-regular fa-thumbs-up" /></div>
-                <div className='film-detali-btn-info'><i className="fa-solid fa-chevron-down" />
-                  <div className='film-ep-info'>Episoade si informatii</div>
-                </div>
-              </div>
-              <div className='film-detali-text'>
-                <span className='film-concordanta'>Nou</span>
-                <span className='film-varsta'>{film[index].varsta}</span>
-                <span className='film-sez'>{film[index].sezoane} sezoane</span>
-                <div className='film-hd'>HD</div>
-              </div>
-              <div className='film-detali-tip'>{film[index].detalii[0]}<span className='film-pct'> • </span> {film[index].detalii[1]} <span className='film-pct'> • </span>{film[index].detalii[2]}</div>
-            </div>
-          </div>
+      <div className="film-row">
+        <div className="film-header">
+          <div className="film-title">Sugestii pentru {currentUserName}</div>
+          <div className="film-progress-bar"></div>
         </div>
-        )})}
+        <div className="film-container">
+          <button className="film-handle film-left-handle"
+          onClick={() => {onHandleClick('left',2,'--slider-index3')}}
+          >
+            <div className="film-text"><i className='fa-solid fa-chevron-left' /></div>
+          </button>
+          <div className="film-slider slider3"
+          ref={slider}
+          >
+          {Movie[0].map((mov, index) => {
+            return (
+                <img src={narcos} 
+                alt="test"
+                className='film-img' 
+                />
+                )
+              })}
+          </div>
+          <button className="film-handle film-right-handle" 
+          onClick={() => {onHandleClick('right',2,'--slider-index3')}}
+          >
+            <div className="film-text"><i className='fa-solid fa-chevron-right' /></div>
+          </button>
+        </div>
       </div>
       </>
       <Footer />
