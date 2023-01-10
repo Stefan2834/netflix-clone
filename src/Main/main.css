@@ -262,11 +262,12 @@
 
 
 .main-bg {
-  background-color:var(--bg);
   width:100vw;
   height:auto;
   padding-bottom:50px;
   overflow: hidden;
+  z-index:3;
+  position: relative;
 }
 .main-film-principal {
   width:100vw;
@@ -463,18 +464,19 @@ i.fa-facebook-f, i.fa-instagram, i.fa-youtube {
   --slider-index1: 0;
   --slider-index2: 0;
   --slider-index3: 0;
+  --bg:rgb(21, 21, 21);
 }
 .film-row {
-  z-index:99;
   transform: translate(0, -75%);
 }
 .film-container {
   display: flex;
   justify-content: center;
-  overflow-x:none;
-  overflow-y: visible;
+  overflow-x:visible;
+  overflow-y: none;
   width:calc(100vw - 15px);
-  margin-bottom: 50px;
+  margin-bottom: 100px;
+  position: relative;
 }
 
 .film-slider {
@@ -492,19 +494,25 @@ i.fa-facebook-f, i.fa-instagram, i.fa-youtube {
 .slider3 {
   transform: translateX(calc(var(--slider-index3) * -100%));
 }
-.film-slider > img {
+.film-img {
   flex: 0 0 calc(100% / var(--items-per-screen));
   max-width: calc(100% / var(--items-per-screen));
   aspect-ratio: 16 / 9;
   padding: var(--img-gap);
-  border-radius: 10px;
   cursor:pointer;
   transition:400ms ease;
+  position: relative;
 }
 .film-img:hover {
   scale: 1.4;
-  transition-delay: 400ms;
   translate:0 -50% ;
+  z-index:2;
+  transition-delay: 400ms;
+}
+.film-img:hover .film-bg {
+  border-bottom-left-radius: 0;
+  transition-delay: 400ms;
+  border-bottom-right-radius: 0;
 }
 
 .film-handle {
@@ -512,7 +520,7 @@ i.fa-facebook-f, i.fa-instagram, i.fa-youtube {
   border-radius: 3px;
   flex-grow: 0;
   flex-shrink: 0;
-  z-index: 10;
+  z-index: 1;
   margin: var(--img-gap) 0;
   width: var(--handle-size);
   font-size: 30px;
@@ -524,7 +532,7 @@ i.fa-facebook-f, i.fa-instagram, i.fa-youtube {
   line-height: 0;
   transition: background-color 150ms ease-in-out;
 }
-.film-row:hover .film-handle {
+.film-container:hover .film-handle {
   color:white;
   background-color: rgba(0, 0, 0, 0.5);
 }
@@ -553,6 +561,7 @@ i.fa-facebook-f, i.fa-instagram, i.fa-youtube {
 
 .film-header {
   display: flex;
+  position: relative;
   justify-content: space-between;
   padding: 8px calc(var(--img-gap) * 2 + var(--handle-size));
   align-items: center;
@@ -560,24 +569,112 @@ i.fa-facebook-f, i.fa-instagram, i.fa-youtube {
 
 .film-title {
   font-size: 24px;
-  margin: 0;
   color:white;
-  z-index:0;
+  position: relative;
   font-family: 'Poppins',sans-serif;
   font-weight: 500;
-  position: relative;
 }
-
-.film-progress-bar {
+.film-bg {
+  width:100%;
+  height:100%;
+  border-radius: 5px;
+  transition: 400ms;
+}
+.film-hover {
+  width:calc(100% - 8px);
+  height:120px;
+  position: absolute; 
+  background-color: rgb(30,30,30);
+  transform:translateY(-5px);
+  opacity: 0;
+  z-index:0;
+  transition: 400ms ease;
+  padding:10px 10px 20px 10px;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  visibility: hidden;
+}
+.film-img:hover .film-hover {
+  opacity:1;
+  visibility: visible;
+  transition-delay: 400ms;
+}
+.film-flex {
   display: flex;
-  gap: 4px;
+  align-items: center;
+  justify-content: space-between;
+  height:100%;
+  flex-direction: column;
 }
-
-.film-progress-item {
-  flex: 0 0 25px;
-  min-width: 24px;
-  height: 8px;
-  background-color: rgba(255, 255, 255, .5);
+.film-btn-flex {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  height:28px;
+  width:100%;
+}
+.film-btn-play, .film-btn-add, .film-btn-like, .film-btn-info {
+  height:100%;
+  aspect-ratio: 1 / 1;
+  border:1px solid rgb(151, 151, 151);
+  border-radius: 50%;
+  margin-right:5px;
+  color:white;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.film-btn-play {
+  color: black;
+  background-color: white;
+  border: none;
+}
+.film-btn-play .fa-play {
+  transform: translateX(50%);
+}
+.film-btn-info {
+  position: absolute;
+  right:0;
+  margin-right: 0;
+}
+.film-det {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width:100%;
+}
+.film-new {
+  font-family: 12px;
+  color:rgb(2, 160, 2);
+  font-family: 'Secular one',sans-serif;
+  font-weight: 400;
+  padding:0 3px;
+}
+.film-age {
+  font-family: 'Poppins',sans-serif;
+  font-size: 11px;
+  color:white;
+  padding:0.2px 5px;
+  border:1px solid white;
+}
+.film-time {
+  font-size:11px;
+  padding:0 4px;
+  color:white;
+}
+.film-hd {
+  font-size:10px;
+  border:0.5px solid rgb(176, 176, 176);
+  padding:1px 2px;
+  color:white;
+  border-radius: 2px;
+}
+.film-info {
+  color:white;
+  font-size:12px;
+  width:100%;
 }
 
 

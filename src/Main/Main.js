@@ -15,7 +15,6 @@ const Main = () => {
     // todos
   } = useAuth();
   const navigate = useNavigate()
-  const slider = useRef()
   const Movie = useState([
     'onoarea','lege','pat','a',
     'onoarea','lege','pat','a',
@@ -48,8 +47,11 @@ const Main = () => {
     } else if (data === 'left') {
       count[index] -= 1
     }
+    if(count[index] !== parseInt(count[index])) {
+      count[index] = parseInt(count[index] + 1)
+    }
     if(count[index] < 0) {
-      count[index] = maxSlide - 1;
+      count[index] = 0;
     } else if(count[index] > maxSlide - 1 && count[index] < maxSlide) {
       count[index] =  count[index] + (maxSlide - parseInt(maxSlide)) - 1
     } else if(count[index] >= maxSlide) {
@@ -59,6 +61,7 @@ const Main = () => {
   }
   
   return (
+    <>
     <div className='main-bg'>
       <NavBar />
       <div className='main-film-principal'>
@@ -84,17 +87,33 @@ const Main = () => {
           >
             <div className="film-text"><i className='fa-solid fa-chevron-left' /></div>
           </button>
-          <div className="film-slider slider1"
-          ref={slider}
-          >
+          <div className="film-slider slider1">
           {Movie[0].map((mov, index) => {
             return (
-                <img src={narcos} key={index}
-                alt="test"
-                className='film-img' 
-                />
-                )
-              })}
+            <div className='film-img' key={index}>
+              <img src={narcos} alt='test' className='film-bg'/>
+              <div className='film-hover'>
+                <div className='film-flex'>
+                  <div className='film-btn-flex'>
+                    <div className='film-btn-play'><i className='fa-solid fa-play' /></div>
+                    <div className='film-btn-add'><i className='fa-solid fa-plus' /></div>
+                    <div className='film-btn-like'><i className='fa-solid fa-thumbs-up' /></div>
+                    <div className='film-btn-info'><i className='fa-solid fa-chevron-down' /></div>
+                  </div>
+                  <div className='film-det'>
+                    <div className='film-new'>Nou</div>
+                    <div className='film-age'>16+</div>
+                    <div className='film-time'>2 h 19 min</div>
+                    <div className='film-hd'>HD</div>
+                  </div>
+                  <div className='film-info'>
+                    Satisfacator <span style={{color:"grey"}}> &#8226;</span> Relaxant <span style={{color:"grey"}}> &#8226;</span> Fantastic
+                  </div>
+                </div>
+              </div>
+            </div>
+            )
+          })}
           </div>
           <button className="film-handle film-right-handle" 
           onClick={() => {onHandleClick('right',0,'--slider-index1')}}
@@ -104,72 +123,9 @@ const Main = () => {
         </div>
       </div>
       </>
-      <>
-      <div className="film-row">
-        <div className="film-header">
-          <div className="film-title">Sugestii pentru {currentUserName}</div>
-          <div className="film-progress-bar"></div>
-        </div>
-        <div className="film-container">
-          <button className="film-handle film-left-handle"
-          onClick={() => {onHandleClick('left',1,'--slider-index2')}}
-          >
-            <div className="film-text"><i className='fa-solid fa-chevron-left' /></div>
-          </button>
-          <div className="film-slider slider2"
-          ref={slider}
-          >
-          {Movie[0].map((mov, index) => {
-            return (
-                <img src={narcos} 
-                alt="test"
-                className='film-img' 
-                />
-                )
-              })}
-          </div>
-          <button className="film-handle film-right-handle" 
-          onClick={() => {onHandleClick('right',1,'--slider-index2')}}
-          >
-            <div className="film-text"><i className='fa-solid fa-chevron-right' /></div>
-          </button>
-        </div>
-      </div>
-      </>
-      <>
-      <div className="film-row">
-        <div className="film-header">
-          <div className="film-title">Sugestii pentru {currentUserName}</div>
-          <div className="film-progress-bar"></div>
-        </div>
-        <div className="film-container">
-          <button className="film-handle film-left-handle"
-          onClick={() => {onHandleClick('left',2,'--slider-index3')}}
-          >
-            <div className="film-text"><i className='fa-solid fa-chevron-left' /></div>
-          </button>
-          <div className="film-slider slider3"
-          ref={slider}
-          >
-          {Movie[0].map((mov, index) => {
-            return (
-                <img src={narcos} 
-                alt="test"
-                className='film-img' 
-                />
-                )
-              })}
-          </div>
-          <button className="film-handle film-right-handle" 
-          onClick={() => {onHandleClick('right',2,'--slider-index3')}}
-          >
-            <div className="film-text"><i className='fa-solid fa-chevron-right' /></div>
-          </button>
-        </div>
-      </div>
-      </>
       <Footer />
     </div>
+    </>
   )
 }
 
