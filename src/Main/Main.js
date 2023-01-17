@@ -38,11 +38,10 @@ const Main = () => {
   useEffect(() => {
     if(!currentUser) {
       navigate('/signup')
+    } else {
+      dbUpdateList(currentUser.uid, currentUserName)
     }
-  }, [])
-  useEffect(() => {
-    dbUpdateList(currentUser.uid, currentUserName)
-  }, [])
+  }, [list])
   const getItemScreen = () => {
     if(window.innerWidth >= 1200) {
       itemScreen = 6;
