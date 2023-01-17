@@ -11,6 +11,8 @@ const NavBar = () => {
     currentUserName, 
     setCurrentUserName,
     todos,
+    currentUser,
+    dbList,
     photos,
     logOut,
     setError,
@@ -52,14 +54,15 @@ const NavBar = () => {
         <div className='nav-drop'>
         <i className="fa-solid fa-caret-up nav-up" />
         {todos.map((todo, index) => 
-        (todo !== currentUserName && (
+        (todo[0] !== currentUserName && (
             <div className='nav-name' key={index} onClick={() => {
-              setCurrentUserName(todo);
+              setCurrentUserName(todo[0]);
+              dbList(currentUser.uid, currentUserName)
               setCurrentPhoto(photos[index]);
               RenderMain();
             }}>
               <img src={photos[index]} alt={'Imagine'} className='nav-avatar' />
-              <span className='nav-under'>{todo}</span>
+              <span className='nav-under'>{todo[0]}</span>
             </div>
           )
         ))}

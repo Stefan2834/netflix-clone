@@ -1,32 +1,49 @@
-import React, {useEffect, useRef, useState} from 'react'; 
+import React, { useEffect } from 'react'; 
 import NavBar from './NavBar.js';
 import Footer from './Footer.js';
 import { useAuth } from '../AuthContext.js';
 import { useNavigate } from 'react-router-dom';
-import narcos from '../filme/narcos.jpg'
 
 const Main = () => {
+  let itemScreen = 0;
   const {
     currentUserName,
-    // list,
-    // setList,
-    // filme,
+    list,
+    setList,
+    filme,
+    setError,
     currentUser,
-    // todos
+    dbUpdateList
   } = useAuth();
   const navigate = useNavigate()
-  const Movie = useState([
-    'onoarea','lege','pat','a',
-    'onoarea','lege','pat','a',
-    'onoarea','lege','pat','a',
-    'onoarea','lege'
-  ])
+  
+  const addList = async (name) => {
+    try {
+      setList(l => [...l,name ])
+      test()
+      // dbUpdateList(currentUser.uid, currentUserName)
+    } catch (err) {
+      setError(err)
+    }
+  }
+  const removeList = async (name) => {
+    try {
+      setList(l => l.filter(n => n !== name))
+      test()
+      // dbUpdateList(currentUser.uid, currentUserName)
+    } catch (err) {
+      setError(err)
+    }
+  }
   useEffect(() => {
-    if(!currentUser) navigate('/signup')
+    if(!currentUser) {
+      navigate('/signup')
+    }
   }, [])
-  let itemScreen = 0;
-  getItemScreen()
-  function getItemScreen () {
+  useEffect(() => {
+    dbUpdateList(currentUser.uid, currentUserName)
+  }, [])
+  const getItemScreen = () => {
     if(window.innerWidth >= 1200) {
       itemScreen = 6;
     } else if (window.innerWidth >= 1000) {
@@ -39,16 +56,14 @@ const Main = () => {
       itemScreen = 2;
     }
   }
+  getItemScreen()
   let count = [0,0,0]
   function onHandleClick(data,index,slider) {
-    let maxSlide = Movie[0].length / itemScreen;
+    let maxSlide = filme.length / itemScreen;
     if(data === 'right') {
       count[index] += 1;
     } else if (data === 'left') {
       count[index] -= 1
-    }
-    if(count[index] !== parseInt(count[index])) {
-      count[index] = parseInt(count[index] + 1)
     }
     if(count[index] < 0) {
       count[index] = 0;
@@ -59,7 +74,6 @@ const Main = () => {
     }
     document.documentElement.style.setProperty(slider, count[index])
   }
-  
   return (
     <>
     <div className='main-bg'>
@@ -88,26 +102,38 @@ const Main = () => {
             <div className="film-text"><i className='fa-solid fa-chevron-left' /></div>
           </button>
           <div className="film-slider slider1">
-          {Movie[0].map((mov, index) => {
+          {filme.map((film, index) => {
             return (
             <div className='film-img' key={index}>
-              <img src={narcos} alt='test' className='film-bg'/>
+              <img src={film.poza} alt={film.name} className='film-bg'/>
               <div className='film-hover'>
                 <div className='film-flex'>
                   <div className='film-btn-flex'>
                     <div className='film-btn-play'><i className='fa-solid fa-play' /></div>
-                    <div className='film-btn-add'><i className='fa-solid fa-plus' /></div>
+                    <div className='film-btn-add'>
+                      {list.indexOf(film.name) === -1 ? (
+                        <>
+                        <div className='film-add-absolute' >Adaugare in Lista mea</div>
+                        <i className='fa-solid fa-plus' onClick={() => {addList(film.name)}} />
+                        </>
+                      ) : (
+                        <>
+                        <div className='film-add-absolute' >Stergere din Lista mea</div>
+                        <i className='fa-solid fa-check' onClick={() => {removeList(film.name)}} />
+                        </>
+                      )}
+                    </div>
                     <div className='film-btn-like'><i className='fa-solid fa-thumbs-up' /></div>
                     <div className='film-btn-info'><i className='fa-solid fa-chevron-down' /></div>
                   </div>
                   <div className='film-det'>
                     <div className='film-new'>Nou</div>
-                    <div className='film-age'>16+</div>
-                    <div className='film-time'>2 h 19 min</div>
+                    <div className='film-age'>{film.varsta}</div>
+                    <div className='film-time'>{film.sezoane} sezoane</div>
                     <div className='film-hd'>HD</div>
                   </div>
                   <div className='film-info'>
-                    Satisfacator <span style={{color:"grey"}}> &#8226;</span> Relaxant <span style={{color:"grey"}}> &#8226;</span> Fantastic
+                    {film.detalii[0]} <span style={{color:"grey"}}> &#8226;</span> {film.detalii[1]} <span style={{color:"grey"}}> &#8226;</span> {film.detalii[2]}
                   </div>
                 </div>
               </div>

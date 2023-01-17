@@ -7,12 +7,13 @@ const Profile = () => {
   const {
     todos,
     photos,
+    currentUserName,
     setCurrentUserName,
     setCurrentPhoto,
     currentUser,
     dbProfile,
     setError,
-    dbFilme
+    dbFilme, dbList
   } = useAuth();
 
   const [loading, setLoading] = useState(true)
@@ -46,13 +47,14 @@ const Profile = () => {
         {todos.map((todo, index) => {
           return (
             <div onClick={() => {
-              setCurrentUserName(todo);
+              setCurrentUserName(todo[0]);
               setCurrentPhoto(photos[index]);
+              dbList(currentUser.uid, currentUserName)
               RenderMain();
             }
             } className='login-profile' key={index}><img alt={'Imagine'} src={photos[index]} className='profile-img'  />
               <div className='login-border' />
-              <div className='login-name'>{todo}</div>
+              <div className='login-name'>{todo[0]}</div>
             </div>
           )
         })}

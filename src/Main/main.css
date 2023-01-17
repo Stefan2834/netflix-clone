@@ -617,7 +617,7 @@ i.fa-facebook-f, i.fa-instagram, i.fa-youtube {
 .film-btn-play, .film-btn-add, .film-btn-like, .film-btn-info {
   height:100%;
   aspect-ratio: 1 / 1;
-  border:1px solid rgb(151, 151, 151);
+  border:1px solid rgb(124, 124, 124);
   border-radius: 50%;
   margin-right:5px;
   color:white;
@@ -626,13 +626,47 @@ i.fa-facebook-f, i.fa-instagram, i.fa-youtube {
   align-items: center;
   justify-content: center;
 }
+.film-btn-add:hover, .film-btn-like:hover, .film-btn-info:hover {
+  border:1px solid white;
+}
 .film-btn-play {
   color: black;
   background-color: white;
   border: none;
 }
+.film-btn-play:hover {
+  background-color: rgb(171, 171, 171);
+}
 .film-btn-play .fa-play {
   transform: translateX(50%);
+}
+.film-add-absolute {
+  position: absolute;
+  padding: 4px 8px;
+  font-size:12px;
+  background-color: rgb(198, 198, 198);
+  top:-30px;
+  white-space: nowrap;
+  opacity: 0;
+  transition: 400ms ease;
+  border-radius:3px;
+  color:black;
+  font-weight: 600;
+}
+.film-add-absolute::before {
+  content:'';
+  width:9px;
+  height:7px;
+  background-color: rgb(198, 198, 198);
+  position: absolute;
+  left:50%;
+  translate:-50%;
+  bottom:-7px;
+  clip-path: polygon(50% 100%, 0 0, 100% 0);
+}
+
+.film-btn-add:hover .film-add-absolute {
+  opacity: 1;
 }
 .film-btn-info {
   position: absolute;

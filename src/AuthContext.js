@@ -74,7 +74,7 @@ export function AuthProvider({children}) {
         const addProfileRef = ref(db, 'users/' + userId + '/profile/')
         const newAddProfileRef = push(addProfileRef)
         try {
-            await set(newAddProfileRef, [name])
+            await set(newAddProfileRef, [name, ['Narcos']])
         } catch (err) {
             setError(err)
         }
@@ -154,6 +154,42 @@ export function AuthProvider({children}) {
             }
         })
     }
+    async function dbList (userId,name) {
+        const listRef = ref(db, 'users/' + userId + '/profile/')
+        onValue(listRef, (snapshot) => {
+            snapshot.forEach((childSnapshot) => {
+                const profileKey = childSnapshot.key;
+                const profileData = childSnapshot.val();
+                if(name === profileData[0]) {
+                    const profileListRef = ref(db, 'users/' + userId + '/profile/' + profileKey + '/')
+                    onValue(profileListRef, (snapshot) => {
+                        if(snapshot.val()[1] != null) {
+                            setList(Object.values(snapshot.val()[1]))
+                        }
+                    })
+                }
+            });
+        }, {
+            onlyOnce:true
+        })
+    }
+    async function dbUpdateList (userId,name) {
+        const listRef = ref(db, 'users/' + userId + '/profile/')
+        onValue(listRef, (snapshot) => {
+            snapshot.forEach((childSnapshot) => {
+                const listKey = childSnapshot.key;
+                const listData = childSnapshot.val();
+                if(name === listData[0]) {
+                    const updates = {};
+                    console.log('hey');
+                    updates['users/' + userId + '/profile/' + listKey + '/'] = [name,  list];
+                    update(ref(db), updates)
+                }
+            })
+        }, {
+            onlyOnce:true
+        })
+    }
     async function signup(email, password) {
         return await createUserWithEmailAndPassword(auth, email, password)
         .then(info => {
@@ -190,7 +226,7 @@ export function AuthProvider({children}) {
         list, setList,
         dbProfile, dbAddProfile,
         dbDeleteProfile, dbChangePhoto,
-        filme,dbFilme,test
+        filme,dbFilme,dbList, dbUpdateList, test
     }
   return (
     <AuthContext.Provider value={value}>
