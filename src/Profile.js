@@ -7,7 +7,6 @@ const Profile = () => {
   const {
     todos,
     photos,
-    currentUserName,
     setCurrentUserName,
     setCurrentPhoto,
     currentUser,
@@ -46,10 +45,10 @@ const Profile = () => {
       <div className='flex-login'>
         {todos.map((todo, index) => {
           return (
-            <div onClick={() => {
-              setCurrentUserName(todo[0]);
-              setCurrentPhoto(photos[index]);
-              dbList(currentUser.uid, currentUserName)
+            <div onClick={async () => {
+              await setCurrentUserName(todo[0]);
+              await setCurrentPhoto(photos[index]);
+              await dbList(currentUser.uid, todo[0])
               RenderMain();
             }
             } className='login-profile' key={index}><img alt={'Imagine'} src={photos[index]} className='profile-img'  />

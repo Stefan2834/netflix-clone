@@ -57,7 +57,7 @@ const NavBar = () => {
         (todo[0] !== currentUserName && (
             <div className='nav-name' key={index} onClick={() => {
               setCurrentUserName(todo[0]);
-              dbList(currentUser.uid, currentUserName)
+              dbList(currentUser.uid, todo[0])
               setCurrentPhoto(photos[index]);
               RenderMain();
             }}>

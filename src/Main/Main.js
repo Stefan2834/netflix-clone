@@ -21,7 +21,6 @@ const Main = () => {
     try {
       setList(l => [...l,name ])
       test()
-      // dbUpdateList(currentUser.uid, currentUserName)
     } catch (err) {
       setError(err)
     }
@@ -30,7 +29,6 @@ const Main = () => {
     try {
       setList(l => l.filter(n => n !== name))
       test()
-      // dbUpdateList(currentUser.uid, currentUserName)
     } catch (err) {
       setError(err)
     }

@@ -50,7 +50,7 @@ const Gestionare = () => {
         }}>
           <img className='profile-img' src={photos[index]} alt={'Imagine'} />
             <div className='login-border login-border-gest'><div className="pen"></div></div>
-            <div className='login-name'>{todo}</div>
+            <div className='login-name'>{todo[0]}</div>
           </div>
         )
       })}
