@@ -1,6 +1,4 @@
 import React, { useEffect } from 'react'; 
-import NavBar from './NavBar.js';
-import Footer from './Footer.js';
 import { useAuth } from '../AuthContext.js';
 import { useNavigate } from 'react-router-dom';
 
@@ -20,7 +18,6 @@ const Main = () => {
   const addList = async (name) => {
     try {
       setList(l => [...l,name ])
-      test()
     } catch (err) {
       setError(err)
     }
@@ -28,7 +25,6 @@ const Main = () => {
   const removeList = async (name) => {
     try {
       setList(l => l.filter(n => n !== name))
-      test()
     } catch (err) {
       setError(err)
     }
@@ -74,7 +70,6 @@ const Main = () => {
   return (
     <>
     <div className='main-bg'>
-      <NavBar />
       <div className='main-film-principal'>
         <div className='main-gradient' />
         <div className='main-film-flex'>
@@ -146,7 +141,6 @@ const Main = () => {
         </div>
       </div>
       </>
-      <Footer />
     </div>
     </>
   )

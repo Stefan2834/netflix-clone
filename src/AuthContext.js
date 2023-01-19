@@ -4,7 +4,7 @@ import {auth} from "./firebase";
 import { useNavigate } from 'react-router-dom';
 import { db } from './firebase';
 import { onValue, ref, set, push, remove, update} from 'firebase/database';
-import useLocalStorage  from './useLocalStorage'
+// import useLocalStorage  from './useLocalStorage'
 import { RenderDefault } from '.';
 import breakingBad from './filme/breaking-bag.jpg';
 import narcos from './filme/narcos.jpg';
@@ -24,9 +24,10 @@ export function AuthProvider({children}) {
     const [todos, setTodos] = useState([])
     const [photos, setPhotos] = useState([])
     const [filme, setFilme] = useState()
-    const [currentUserName, setCurrentUserName] = useLocalStorage('currentUser','');
-    const [currentPhoto, setCurrentPhoto] = useLocalStorage('currentPhoto','');
-    const [list, setList] = useState([]);
+    const [currentUserName, setCurrentUserName] = useState();
+    const [currentPhoto, setCurrentPhoto] = useState();
+    // useLocalStorage('currentUser','');
+    const [list, setList] = useState();
     const navigate = useNavigate()
     
     useEffect(() => {
@@ -74,7 +75,7 @@ export function AuthProvider({children}) {
         const addProfileRef = ref(db, 'users/' + userId + '/profile/')
         const newAddProfileRef = push(addProfileRef)
         try {
-            await set(newAddProfileRef, [name, ['Narcos']])
+            await set(newAddProfileRef, [name, {}])
         } catch (err) {
             setError(err)
         }
@@ -165,6 +166,8 @@ export function AuthProvider({children}) {
                     onValue(profileListRef, (snapshot) => {
                         if(snapshot.val()[1] != null) {
                             setList(Object.values(snapshot.val()[1]))
+                        } else {
+                            setList([])
                         }
                     })
                 }
@@ -181,7 +184,6 @@ export function AuthProvider({children}) {
                 const listData = childSnapshot.val();
                 if(name === listData[0]) {
                     const updates = {};
-                    console.log('hey');
                     updates['users/' + userId + '/profile/' + listKey + '/'] = [name,  list];
                     update(ref(db), updates)
                 }

@@ -1,5 +1,5 @@
 import React from 'react'; 
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { RenderMain,RenderDefault } from "../index";
 import { useAuth } from '../AuthContext';
 import { useNavigate } from 'react-router-dom';
@@ -37,19 +37,19 @@ const NavBar = () => {
     <div className='logo'></div>
     <div className='nav-rasfoire'>Rasfoire</div>
     <div className='nav-left'>
-      <div className='nav-text active'><Link to='/'>Pagina principala</Link></div>
-      <div className='nav-text'><Link to='/'>Seriale</Link></div>
-      <div className='nav-text'><Link to='/'>Filme</Link></div>
-      <div className='nav-text'><Link to='/'>Noi si populare</Link></div>
-      <div className='nav-text'><Link to='/'>Lista mea</Link></div>
-      <div className='nav-text'><Link to='/'>Rasfoieste dupa limba</Link></div>
+      <div className='nav-text'><NavLink to='/'>Pagina principala</NavLink></div>
+      <div className='nav-text'><NavLink to='/test'>Seriale</NavLink></div>
+      <div className='nav-text'><NavLink to='/test'>Filme</NavLink></div>
+      <div className='nav-text'><NavLink to='/test'>Noi si populare</NavLink></div>
+      <div className='nav-text'><NavLink to='/main/list'>Lista mea</NavLink></div>
+      <div className='nav-text'><NavLink to='/test'>Rasfoieste dupa limba</NavLink></div>
     </div>
     <div className='nav-right'>
       <div className='nav-icon'><i className="fa-solid fa-magnifying-glass" /></div>
       <div className='nav-icon'>Copii</div>
       <div className='nav-icon'><i className="fa-regular fa-bell" /></div>
       <div className='nav-icon'>
-        <img className='nav-image'src={currentPhoto} alt={'Imagine'}></img>
+        <img className='nav-image'src={`.${currentPhoto}`} alt={'Imagine'}></img>
         <i className="fa-solid fa-caret-up" />
         <div className='nav-drop'>
         <i className="fa-solid fa-caret-up nav-up" />
@@ -61,7 +61,7 @@ const NavBar = () => {
               setCurrentPhoto(photos[index]);
               RenderMain();
             }}>
-              <img src={photos[index]} alt={'Imagine'} className='nav-avatar' />
+              <img src={`.${photos[index]}`} alt={'Imagine'} className='nav-avatar' />
               <span className='nav-under'>{todo[0]}</span>
             </div>
           )
