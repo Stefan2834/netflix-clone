@@ -59,19 +59,17 @@ export default function List() {
                 <div className='film-flex'>
                   <div className='film-btn-flex'>
                     <div className='film-btn-play'><i className='fa-solid fa-play' /></div>
-                    <div className='film-btn-add'>
-                      {list.indexOf(film) !== -1 ? (
-                        <>
+                    {list.indexOf(film.name) === -1 ? (
+                      <div className='film-btn-add' onClick={() => {addList(film.name)}}>
                         <div className='film-add-absolute' >Adaugare in Lista mea</div>
-                        <i className='fa-solid fa-plus' onClick={() => {addList(film.name)}} />
-                        </>
+                        <i className='fa-solid fa-plus' />
+                      </div>
                       ) : (
-                        <>
+                      <div className='film-btn-add' onClick={() => {removeList(film.name)}}>
                         <div className='film-add-absolute' >Stergere din Lista mea</div>
-                        <i className='fa-solid fa-check' onClick={() => {removeList(film.name)}} />
-                        </>
+                        <i className='fa-solid fa-check' />
+                      </div>
                       )}
-                    </div>
                     <div className='film-btn-like'><i className='fa-solid fa-thumbs-up' /></div>
                     <div className='film-btn-info'><i className='fa-solid fa-chevron-down' /></div>
                   </div>

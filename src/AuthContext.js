@@ -101,7 +101,7 @@ export function AuthProvider({children}) {
             snapshot.forEach((childSnapshot) => {
                 const profileKey = childSnapshot.key;
                 const profileData = childSnapshot.val();
-                if(profileData[0] === name[0]) {
+                if(profileData[0] === name) {
                     remove(ref(db, 'users/' + userId + '/profile/' + profileKey + '/'))
                 }
             });

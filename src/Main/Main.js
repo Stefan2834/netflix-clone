@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react'; 
 import { useAuth } from '../AuthContext.js';
 import { useNavigate } from 'react-router-dom';
+import NavBar from './NavBar.js';
+import Footer from './Footer.js';
 
 const Main = () => {
   let itemScreen = 0;
@@ -17,7 +19,7 @@ const Main = () => {
   
   const addList = async (name) => {
     try {
-      setList(l => [...l,name ])
+      setList(l => [...l, name])
     } catch (err) {
       setError(err)
     }
@@ -69,6 +71,7 @@ const Main = () => {
   }
   return (
     <>
+    <NavBar />
     <div className='main-bg'>
       <div className='main-film-principal'>
         <div className='main-gradient' />
@@ -96,25 +99,23 @@ const Main = () => {
           <div className="film-slider slider1">
           {filme.map((film, index) => {
             return (
-            <div className='film-img' key={index}>
+            <div className='film-img' key={index} >
               <img src={film.poza} alt={film.name} className='film-bg'/>
               <div className='film-hover'>
                 <div className='film-flex'>
                   <div className='film-btn-flex'>
                     <div className='film-btn-play'><i className='fa-solid fa-play' /></div>
-                    <div className='film-btn-add'>
-                      {list.indexOf(film.name) === -1 ? (
-                        <>
+                    {list.indexOf(film.name) === -1 ? (
+                      <div className='film-btn-add' onClick={() => {addList(film.name)}}>
                         <div className='film-add-absolute' >Adaugare in Lista mea</div>
-                        <i className='fa-solid fa-plus' onClick={() => {addList(film.name)}} />
-                        </>
+                        <i className='fa-solid fa-plus' />
+                      </div>
                       ) : (
-                        <>
+                      <div className='film-btn-add' onClick={() => {removeList(film.name)}}>
                         <div className='film-add-absolute' >Stergere din Lista mea</div>
-                        <i className='fa-solid fa-check' onClick={() => {removeList(film.name)}} />
-                        </>
+                        <i className='fa-solid fa-check' />
+                      </div>
                       )}
-                    </div>
                     <div className='film-btn-like'><i className='fa-solid fa-thumbs-up' /></div>
                     <div className='film-btn-info'><i className='fa-solid fa-chevron-down' /></div>
                   </div>
@@ -142,6 +143,7 @@ const Main = () => {
       </div>
       </>
     </div>
+    <Footer />
     </>
   )
 }

@@ -44,7 +44,7 @@ const Gestionare = () => {
     {todos.map((todo, index) => {
       return (
         <div className='login-profile' key={index} onClick={() => {
-          setCurrentUserName(todo);
+          setCurrentUserName(todo[0]);
           setCurrentPhoto(photos[index]);
           RenderManage();
         }}>
