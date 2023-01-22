@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'; 
+import React, { useEffect,useRef } from 'react'; 
 import { useAuth } from '../AuthContext.js';
 import { useNavigate } from 'react-router-dom';
 import NavBar from './NavBar.js';
@@ -16,17 +16,19 @@ const Main = () => {
     dbUpdateList
   } = useAuth();
   const navigate = useNavigate()
+  const leftRef = useRef();
+  const rightRef = useRef()
   
   const addList = async (name) => {
     try {
-      setList(l => [...l, name])
+      await setList(l => [...l, name])
     } catch (err) {
       setError(err)
     }
   }
   const removeList = async (name) => {
     try {
-      setList(l => l.filter(n => n !== name))
+      await setList(l => l.filter(n => n != name))
     } catch (err) {
       setError(err)
     }
@@ -35,7 +37,7 @@ const Main = () => {
     if(!currentUser) {
       navigate('/signup')
     } else {
-      dbUpdateList(currentUser.uid, currentUserName)
+      dbUpdateList(currentUser.uid, currentUserName);
     }
   }, [list])
   const getItemScreen = () => {
@@ -64,8 +66,17 @@ const Main = () => {
       count[index] = 0;
     } else if(count[index] > maxSlide - 1 && count[index] < maxSlide) {
       count[index] =  count[index] + (maxSlide - parseInt(maxSlide)) - 1
-    } else if(count[index] >= maxSlide) {
-      count[index] = 0;
+    }
+    if(count[index] === 0) {
+      leftRef.current.style.visibility = 'hidden';
+    } else {
+      leftRef.current.style.visibility = 'visible';
+    }
+    console.log(maxSlide, count[index])
+    if(count[index] === maxSlide - 1) {
+      rightRef.current.style.visibility = 'hidden';
+    } else {
+      rightRef.current.style.visibility = 'visible' ;
     }
     document.documentElement.style.setProperty(slider, count[index])
   }
@@ -91,8 +102,8 @@ const Main = () => {
           <div className="film-progress-bar"></div>
         </div>
         <div className="film-container">
-          <button className="film-handle film-left-handle"
-          onClick={() => {onHandleClick('left',0,'--slider-index1')}}
+          <button className="film-handle film-left-handle" ref={leftRef}
+          onClick={() => {onHandleClick('left',0,'--slider-index1')}} 
           >
             <div className="film-text"><i className='fa-solid fa-chevron-left' /></div>
           </button>
@@ -134,7 +145,7 @@ const Main = () => {
             )
           })}
           </div>
-          <button className="film-handle film-right-handle" 
+          <button className="film-handle film-right-handle" ref={rightRef}
           onClick={() => {onHandleClick('right',0,'--slider-index1')}}
           >
             <div className="film-text"><i className='fa-solid fa-chevron-right' /></div>

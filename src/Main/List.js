@@ -52,7 +52,8 @@ export default function List() {
           <div className="film-slider slider1 list-slider">
           {list != null && (
           filme.map((film, index) => {
-            if(list.indexOf(film.name) !== -1) return (
+            if(list.indexOf(film.name) !== -1) {
+              return (
             <div className='film-img list-img' key={index}>
               <img src={film.poza} alt={film.name} className='film-bg'/>
               <div className='film-hover'>
@@ -85,7 +86,7 @@ export default function List() {
                 </div>
               </div>
             </div>
-            )
+          )}
           }))}
           </div>
           <button className="film-handle film-right-handle list-handle">

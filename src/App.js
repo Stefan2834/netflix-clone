@@ -18,7 +18,6 @@ const MainLayout = () => {
     </>
   )
 }
-
 const App = (props) => {
   return (
   <React.StrictMode>

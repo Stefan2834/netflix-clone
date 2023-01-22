@@ -275,8 +275,6 @@
 
 
 .footer {
-  width:100vw;
-  height:250px;
   position: relative;
   background-color: var(--bg);
   bottom:0px;
@@ -285,6 +283,7 @@
   justify-content: flex-start;
   flex-direction: column;
   z-index:1;
+  flex-wrap: wrap;
 }
 .footer-icon {
   width:1000px;
@@ -302,11 +301,20 @@ i.fa-facebook-f, i.fa-instagram, i.fa-youtube {
 }
 .footer-flex {
   width:1000px;
-  height:100px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   position: relative;
+  flex-wrap: wrap;
+}
+@media screen and (max-width:1000px) {
+  .footer-flex {
+    flex-direction: column;
+    width:100%;
+  }
+  .footer-icon {
+    width:100%;
+  }
 }
 .footer-flex-section {
   width:auto;
@@ -315,6 +323,11 @@ i.fa-facebook-f, i.fa-instagram, i.fa-youtube {
   align-items: flex-start;
   justify-content: center;
   flex-direction: column;
+}
+@media (max-width:1000px) {
+  .footer-flex-section {
+    width:100%;
+  }
 }
 .footer-text {
   width:100%;
@@ -365,7 +378,6 @@ i.fa-facebook-f, i.fa-instagram, i.fa-youtube {
 
 
 .main-bg {
-  width:100vw;
   height:auto;
   padding-bottom:50px;
   overflow: hidden;
@@ -467,9 +479,9 @@ i.fa-facebook-f, i.fa-instagram, i.fa-youtube {
   justify-content: center;
   overflow-x:visible;
   overflow-y: none;
-  width:calc(100vw - 15px);
   margin-bottom: 100px;
   position: relative;
+  width:100%;
 }
 
 .film-slider {
@@ -535,6 +547,7 @@ i.fa-facebook-f, i.fa-instagram, i.fa-youtube {
   border-bottom-left-radius: 0;
   opacity: 1;
   cursor: pointer;
+  visibility: hidden;
 }
 
 .film-right-handle {
@@ -645,6 +658,7 @@ i.fa-facebook-f, i.fa-instagram, i.fa-youtube {
   border-radius:3px;
   color:black;
   font-weight: 600;
+  visibility: hidden;
 }
 .film-add-absolute::before {
   content:'';
@@ -660,6 +674,7 @@ i.fa-facebook-f, i.fa-instagram, i.fa-youtube {
 
 .film-btn-add:hover .film-add-absolute {
   opacity: 1;
+  visibility: visible;
 }
 .film-btn-info {
   position: absolute;
@@ -758,9 +773,6 @@ i.fa-facebook-f, i.fa-instagram, i.fa-youtube {
   }
   .film-header {
     padding: 8px calc(var(--img-gap) * 2 + 20px)
-  }
-  .film-container {
-    width:100vw;
   }
 }
 @media (max-width:650px) {
