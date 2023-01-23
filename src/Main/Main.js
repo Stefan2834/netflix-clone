@@ -1,4 +1,4 @@
-import React, { useEffect,useRef } from 'react'; 
+import React, { useEffect,useRef,useLayoutEffect, useState } from 'react'; 
 import { useAuth } from '../AuthContext.js';
 import { useNavigate } from 'react-router-dom';
 import NavBar from './NavBar.js';
@@ -13,11 +13,14 @@ const Main = () => {
     filme,
     setError,
     currentUser,
-    dbUpdateList
+    dbUpdateList,
+    generate
   } = useAuth();
   const navigate = useNavigate()
   const leftRef = useRef();
   const rightRef = useRef()
+  const [mainBg, setMainBg] = useState()
+
   
   const addList = async (name) => {
     try {
@@ -28,7 +31,7 @@ const Main = () => {
   }
   const removeList = async (name) => {
     try {
-      await setList(l => l.filter(n => n != name))
+      await setList(l => l.filter(n => n !== name))
     } catch (err) {
       setError(err)
     }
@@ -40,6 +43,11 @@ const Main = () => {
       dbUpdateList(currentUser.uid, currentUserName);
     }
   }, [list])
+
+  useLayoutEffect(() => {
+    setMainBg(generate())
+  }, [currentUserName])
+
   const getItemScreen = () => {
     if(window.innerWidth >= 1200) {
       itemScreen = 6;
@@ -72,7 +80,6 @@ const Main = () => {
     } else {
       leftRef.current.style.visibility = 'visible';
     }
-    console.log(maxSlide, count[index])
     if(count[index] === maxSlide - 1) {
       rightRef.current.style.visibility = 'hidden';
     } else {
@@ -85,6 +92,7 @@ const Main = () => {
     <NavBar />
     <div className='main-bg'>
       <div className='main-film-principal'>
+        <img src={mainBg} className='main-frame' alt='MainBg' />
         <div className='main-gradient' />
         <div className='main-film-flex'>
           <div className='main-logo' />

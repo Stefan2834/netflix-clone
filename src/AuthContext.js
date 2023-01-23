@@ -4,12 +4,25 @@ import {auth} from "./firebase";
 import { useNavigate } from 'react-router-dom';
 import { db } from './firebase';
 import { onValue, ref, set, push, remove, update} from 'firebase/database';
-// import useLocalStorage  from './useLocalStorage'
 import { RenderDefault } from '.';
 import breakingBad from './filme/breaking-bag.jpg';
 import narcos from './filme/narcos.jpg';
 import stranger from './filme/stranger-things.png';
 import vikings from './filme/vikingi.jpg';
+import dark from './filme/dark.jpg';
+import betterCallSaul from './filme/better-call-saul.png'
+import driveToSurvive from './filme/drive-to-survive.jpg'
+import moneyHeist from './filme/money-heist.jpg'
+import lucifer from './filme/lucifer.webp'
+import narcosMexic from './filme/narcos-mexic.jpg'
+import peakyBlinders from './filme/peaky-blinders.jpg'
+import blackList from './filme/black-list.jpg'
+import lastDance from './filme/last-dance.jpg'
+import theWitcher from './filme/the-witcher.jpg'
+import peaky1 from './filme/peaky1.webp'
+import peaky2 from './filme/peaky2.jpg'
+import peaky3 from './filme/peaky3.jpg'
+import peaky4 from './filme/peaky4.jpg'
 
 
 export const AuthContext = createContext();
@@ -55,22 +68,23 @@ export function AuthProvider({children}) {
     async function test () {
         const reference = ref(db, 'filme/');
         await set(reference, [
-            {varsta:"16+",sezoane:6,poza:narcos,detalii:["Test","Test","Test"],name:"Narcos"},
-            {varsta:"16+",sezoane:6,poza:breakingBad,detalii:["Test","Test","Test"],name:"BreakingBad"},
-            {varsta:"16+",sezoane:6,poza:stranger,detalii:["Test","Test","Test"],name:"Stranger"},
-            {varsta:"16+",sezoane:6,poza:vikings,detalii:["Test","Test","Test"],name:"Vikings"},
-            {varsta:"16+",sezoane:6,poza:narcos,detalii:["Test","Test","Test"],name:"Narcos"},
-            {varsta:"16+",sezoane:6,poza:narcos,detalii:["Test","Test","Test"],name:"Narcos"},
-            {varsta:"16+",sezoane:6,poza:narcos,detalii:["Test","Test","Test"],name:"Narcos"},
-            {varsta:"16+",sezoane:6,poza:narcos,detalii:["Test","Test","Test"],name:"Narcos"},
-            {varsta:"16+",sezoane:6,poza:narcos,detalii:["Test","Test","Test"],name:"Narcos"},
-            {varsta:"16+",sezoane:6,poza:narcos,detalii:["Test","Test","Test"],name:"Narcos"},
-            {varsta:"16+",sezoane:6,poza:narcos,detalii:["Test","Test","Test"],name:"Narcos"},
-            {varsta:"16+",sezoane:6,poza:narcos,detalii:["Test","Test","Test"],name:"Narcos"},
-            {varsta:"16+",sezoane:6,poza:narcos,detalii:["Test","Test","Test"],name:"Narcos"},
-            {varsta:"16+",sezoane:6,poza:narcos,detalii:["Test","Test","Test"],name:"Narcos"}
+            {varsta:"16+",sezoane:3,poza:narcos,detalii:["Dur","Intunecat","Cu suspans"],name:"Narcos"},
+            {varsta:"16+",sezoane:5,poza:breakingBad,detalii:["Violent","Durt","Intunecat"],name:"BreakingBad"},
+            {varsta:"16+",sezoane:4,poza:stranger,detalii:["Sinistru","Infricosator","Violent"],name:"Stranger"},
+            {varsta:"16+",sezoane:6,poza:vikings,detalii:["Violent","Captivant","De epoca"],name:"Vikings"},
+            {varsta:"16+",sezoane:6,poza:betterCallSaul,detalii:["Insolit","Dur","Drama"],name:"BetterCallSaul"},
+            {varsta:"16+",sezoane:5,poza:driveToSurvive,detalii:["Documentar","Dramatic","Captivant"],name:"DTS"},
+            {varsta:"16+",sezoane:5,poza:moneyHeist,detalii:["Cu suspans","Captivant","Violent"],name:"MoneyHeist"},
+            {varsta:"16+",sezoane:3,poza:dark,detalii:["Tulburator","Inspaimantator","Sinistru"],name:"Dark"},
+            {varsta:"16+",sezoane:6,poza:peakyBlinders,detalii:["Violent","Drama","Politist"],name:"PeakyBlinders"},
+            {varsta:"13+",sezoane:6,poza:lucifer,detalii:["Ireverentio","Captivant","Drama"],name:"Lucifer"},
+            {varsta:"18+",sezoane:3,poza:narcosMexic,detalii:["Dur","Intunecat","Captivant"],name:"NarcosMexic"},
+            {varsta:"16+",sezoane:2,poza:theWitcher,detalii:["Captivant","Actiune","Drama"],name:"TheWitcher"},
+            {varsta:"16+",sezoane:9,poza:blackList,detalii:["Captivant","Drama","Violent"],name:"BlackList"},
+            {varsta:"16+",sezoane:1,poza:lastDance,detalii:["Reconfortant","Documentar","Interesant"],name:"LastDance"}
         ])
     }
+    // test()
     async function dbAddProfile (userId, name, photo) {
         const addProfileRef = ref(db, 'users/' + userId + '/profile/')
         const newAddProfileRef = push(addProfileRef)
@@ -151,7 +165,11 @@ export function AuthProvider({children}) {
         const filmeRef = ref(db, 'filme/')
         onValue(filmeRef, (snapshot) => {
             if(snapshot.val() !== null) {
-                setFilme(Object.values(snapshot.val()));
+                const sort = Object.values(snapshot.val()).sort(sortFilme)
+                function sortFilme (a,b) {
+                    return 0.5 - Math.random()
+                }
+                setFilme(sort);
             }
         })
     }
@@ -217,6 +235,10 @@ export function AuthProvider({children}) {
             setError(err)
         })
     }
+    function generate () {
+        const random = [peaky1, peaky2, peaky3, peaky4]
+        return random[parseInt(Math.random() * 3)]
+    }
     const value = {
         currentUser,
         signup,login,logOut,
@@ -228,7 +250,7 @@ export function AuthProvider({children}) {
         list, setList,
         dbProfile, dbAddProfile,
         dbDeleteProfile, dbChangePhoto,
-        filme,dbFilme,dbList, dbUpdateList, test
+        filme,dbFilme,dbList, dbUpdateList, test, generate
     }
   return (
     <AuthContext.Provider value={value}>
