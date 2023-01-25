@@ -1,11 +1,10 @@
-import React, { useEffect,useRef,useLayoutEffect, useState } from 'react'; 
+import React, { useEffect, useLayoutEffect, useState, useMemo } from 'react'; 
 import { useAuth } from '../AuthContext.js';
 import { useNavigate } from 'react-router-dom';
 import NavBar from './NavBar.js';
 import Footer from './Footer.js';
 
 const Main = () => {
-  let itemScreen = 0;
   const {
     currentUserName,
     list,
@@ -14,12 +13,11 @@ const Main = () => {
     setError,
     currentUser,
     dbUpdateList,
-    generate
+    generate, sliderCount
   } = useAuth();
   const navigate = useNavigate()
-  const leftRef = useRef();
-  const rightRef = useRef()
   const [mainBg, setMainBg] = useState()
+  const [collums] = useState([`Sugestii pentru ${currentUserName}`,'Populare Acum','Doar pe Netflix','Seriale aprieciate de critici'])
 
   
   const addList = async (name) => {
@@ -48,46 +46,22 @@ const Main = () => {
     setMainBg(generate())
   }, [currentUserName])
 
-  const getItemScreen = () => {
-    if(window.innerWidth > 1200) {
-      itemScreen = 6;
-    } else if (window.innerWidth > 1000) {
-      itemScreen = 5 
-    } else if (window.innerWidth > 800) {
-      itemScreen = 4;
-    } else if (window.innerWidth > 500) {
-      itemScreen = 3;
-    } else {
-      itemScreen = 2;
-    }
-    console.log(window.innerWidth)
-  }
-  getItemScreen()
-  let count = [0,0,0]
   function onHandleClick(data,index,slider) {
+    let itemScreen = getComputedStyle(document.documentElement).getPropertyValue('--items-per-screen')
     let maxSlide = filme.length / itemScreen;
-    console.log(itemScreen);
     if(data === 'right') {
-      count[index] += 1;
+      sliderCount[index] += 1;
     } else if (data === 'left') {
-      count[index] -= 1
+      sliderCount[index] -= 1
     }
-    if(count[index] < 0) {
-      count[index] = 0;
-    } else if(count[index] > maxSlide - 1 && count[index] < maxSlide) {
-      count[index] =  count[index] + (maxSlide - parseInt(maxSlide)) - 1
+    if(sliderCount[index] < 0) {
+      sliderCount[index] = 0;
+    } else if(sliderCount[index] > maxSlide - 1 && sliderCount[index] < maxSlide) {
+      sliderCount[index] =  sliderCount[index] + (maxSlide - parseInt(maxSlide)) - 1
+    } else if(sliderCount[index] > maxSlide - 1) {
+      sliderCount[index] = maxSlide - 1;
     }
-    if(count[index] === 0) {
-      leftRef.current.style.visibility = 'hidden';
-    } else {
-      leftRef.current.style.visibility = 'visible';
-    }
-    if(count[index] === maxSlide - 1) {
-      rightRef.current.style.visibility = 'hidden';
-    } else {
-      rightRef.current.style.visibility = 'visible' ;
-    }
-    document.documentElement.style.setProperty(slider, count[index])
+    document.documentElement.style.setProperty(slider, sliderCount[index])
   }
   return (
     <>
@@ -106,18 +80,21 @@ const Main = () => {
         </div>
       </div>
       <>
-      <div className="film-row">
+      {collums.map((collum,ind) => {
+      return (
+      <div className="film-row" key={ind}>
         <div className="film-header">
-          <div className="film-title">Sugestii pentru {currentUserName}</div>
+          <div className="film-title">{collum}</div>
           <div className="film-progress-bar"></div>
         </div>
         <div className="film-container">
-          <button className="film-handle film-left-handle" ref={leftRef}
-          onClick={() => {onHandleClick('left',0,'--slider-index1')}} 
+          <button className="film-handle film-left-handle" 
+          // style={sliderCount[ind] === 0 ? {visibility:'hidden'} : {visibility:'visible'}}
+          onClick={() => {onHandleClick('left',ind,`--slider-index${ind}`)}} 
           >
             <div className="film-text"><i className='fa-solid fa-chevron-left' /></div>
           </button>
-          <div className="film-slider slider1">
+          <div className={`film-slider slider${ind}`}>
           {filme.map((film, index) => {
             return (
             <div className='film-img' key={index} >
@@ -155,13 +132,14 @@ const Main = () => {
             )
           })}
           </div>
-          <button className="film-handle film-right-handle" ref={rightRef}
-          onClick={() => {onHandleClick('right',0,'--slider-index1')}}
+          <button className="film-handle film-right-handle"
+          onClick={() => {onHandleClick('right',ind,`--slider-index${ind}`)}}
           >
             <div className="film-text"><i className='fa-solid fa-chevron-right' /></div>
           </button>
         </div>
       </div>
+      )})}
       </>
     </div>
     <Footer />

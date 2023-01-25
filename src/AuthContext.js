@@ -39,6 +39,7 @@ export function AuthProvider({children}) {
     const [filme, setFilme] = useState()
     const [currentUserName, setCurrentUserName] = useState();
     const [currentPhoto, setCurrentPhoto] = useState();
+    let sliderCount = [0,0,0,0,0]
     // useLocalStorage('currentUser','');
     const [list, setList] = useState();
     const navigate = useNavigate()
@@ -250,7 +251,7 @@ export function AuthProvider({children}) {
         list, setList,
         dbProfile, dbAddProfile,
         dbDeleteProfile, dbChangePhoto,
-        filme,dbFilme,dbList, dbUpdateList, test, generate
+        filme,dbFilme,dbList, dbUpdateList, test, generate, sliderCount
     }
   return (
     <AuthContext.Provider value={value}>
