@@ -28,6 +28,7 @@ const App = (props) => {
             <Route path='/manage' element={<props.manage />} />
             <Route path='/signup' element={<Signup />} />
             <Route path='/login' element={<Login />} />
+            <Route path='/test' element={<Footer />} />
             <Route path='/main' element={<MainLayout />}>
               <Route path='list' exact element={<List />} />
             </Route>

@@ -49,22 +49,24 @@ const Main = () => {
   }, [currentUserName])
 
   const getItemScreen = () => {
-    if(window.innerWidth >= 1200) {
+    if(window.innerWidth > 1200) {
       itemScreen = 6;
-    } else if (window.innerWidth >= 1000) {
+    } else if (window.innerWidth > 1000) {
       itemScreen = 5 
-    } else if (window.innerWidth >= 800) {
+    } else if (window.innerWidth > 800) {
       itemScreen = 4;
-    } else if (window.innerWidth >= 500) {
+    } else if (window.innerWidth > 500) {
       itemScreen = 3;
     } else {
       itemScreen = 2;
     }
+    console.log(window.innerWidth)
   }
   getItemScreen()
   let count = [0,0,0]
   function onHandleClick(data,index,slider) {
     let maxSlide = filme.length / itemScreen;
+    console.log(itemScreen);
     if(data === 'right') {
       count[index] += 1;
     } else if (data === 'left') {

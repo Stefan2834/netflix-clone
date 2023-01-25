@@ -307,15 +307,6 @@ i.fa-facebook-f, i.fa-instagram, i.fa-youtube {
   position: relative;
   flex-wrap: wrap;
 }
-@media screen and (max-width:1000px) {
-  .footer-flex {
-    flex-direction: column;
-    width:100%;
-  }
-  .footer-icon {
-    width:100%;
-  }
-}
 .footer-flex-section {
   width:auto;
   height:105px;
@@ -757,6 +748,16 @@ i.fa-facebook-f, i.fa-instagram, i.fa-youtube {
     font-size:18px;
     line-height:33px;
     width:220px;
+  }
+  .footer-btn {
+    width:auto;
+  }
+  .footer-flex {
+    flex-direction: column;
+    width:auto;
+  }
+  .footer-icon {
+    width:auto;
   }
 }
 @media (max-width: 800px) {
