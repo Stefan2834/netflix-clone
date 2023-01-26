@@ -511,10 +511,22 @@ i.fa-facebook-f, i.fa-instagram, i.fa-youtube {
   padding: var(--img-gap);
   cursor:pointer;
   transition:400ms ease;
+  flex-grow:1;
+  position: relative;
 }
-.film-img:hover {
-  scale: 1.4;
-  translate:0 -50% ;
+.film-img-absolute {
+  width:100%;
+  height:100%;
+  position: absolute;
+  transition: 400ms ease;
+  bottom:0;
+  left:0;
+  padding:var(--img-gap);
+}
+.film-img-absolute:hover {
+  scale:1.4;
+  transform-origin: top top;
+  translate:0 -50%;
   z-index:4;
   transition-delay: 400ms;
 }
@@ -537,14 +549,16 @@ i.fa-facebook-f, i.fa-instagram, i.fa-youtube {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: transparent;
   color: transparent;
   line-height: 0;
+  background-color: transparent;
   transition: background-color 150ms ease-in-out;
+}
+.film-handle:not(.list-handle) {
+  background-color: rgba(0, 0, 0, 0.4);
 }
 .film-container:hover .film-handle:not(.list-handle) {
   color:white;
-  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .film-left-handle {
@@ -594,7 +608,6 @@ i.fa-facebook-f, i.fa-instagram, i.fa-youtube {
   height:120px;
   position: absolute; 
   background-color: rgb(30,30,30);
-  transform:translateY(-5px);
   opacity: 0;
   z-index:0;
   transition: 400ms ease;
@@ -602,6 +615,7 @@ i.fa-facebook-f, i.fa-instagram, i.fa-youtube {
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;
   visibility: hidden;
+  top:calc(100% - var(--img-gap));
 }
 .film-img:hover .film-hover {
   opacity:1;

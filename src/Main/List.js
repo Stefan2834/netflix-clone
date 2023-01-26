@@ -4,29 +4,13 @@ import { useNavigate } from 'react-router-dom'
 
 export default function List() {
   const {
-    list,
+    list,dispatch,
     filme,
     currentUserName,
-    setError,
-    setList,
     dbUpdateList,
     currentUser
   } = useAuth()
   const navigate = useNavigate()
-  const addList = async (name) => {
-    try {
-      setList(l => [...l,name ])
-    } catch (err) {
-      setError(err)
-    }
-  }
-  const removeList = async (name) => {
-    try {
-      setList(l => l.filter(n => n !== name))
-    } catch (err) {
-      setError(err)
-    }
-  }
   useEffect(() => {
     if (!currentUserName) {
       navigate('/')
@@ -56,17 +40,19 @@ export default function List() {
               return (
             <div className='film-img list-img' key={index}>
               <img src={film.poza} alt={film.name} className='film-bg'/>
+              <div className='film-img-absolute'>
+              <img src={film.poza} alt={film.name} className='film-bg'/>
               <div className='film-hover'>
                 <div className='film-flex'>
                   <div className='film-btn-flex'>
                     <div className='film-btn-play'><i className='fa-solid fa-play' /></div>
                     {list.indexOf(film.name) === -1 ? (
-                      <div className='film-btn-add' onClick={() => {addList(film.name)}}>
+                      <div className='film-btn-add' onClick={() => dispatch({type: 'add',payload:{name:film.name}})}>
                         <div className='film-add-absolute' >Adaugare in Lista mea</div>
                         <i className='fa-solid fa-plus' />
                       </div>
                       ) : (
-                      <div className='film-btn-add' onClick={() => {removeList(film.name)}}>
+                      <div className='film-btn-add' onClick={() => dispatch({type: 'remove',payload:{name:film.name}})}>
                         <div className='film-add-absolute' >Stergere din Lista mea</div>
                         <i className='fa-solid fa-check' />
                       </div>
@@ -84,6 +70,7 @@ export default function List() {
                     {film.detalii[0]} <span style={{color:"grey"}}> &#8226;</span> {film.detalii[1]} <span style={{color:"grey"}}> &#8226;</span> {film.detalii[2]}
                   </div>
                 </div>
+              </div>
               </div>
             </div>
           )}

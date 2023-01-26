@@ -1,5 +1,5 @@
 import { signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
-import React, { createContext, useContext, useEffect, useState } from 'react'
+import React, { createContext, useContext, useEffect, useState, useReducer } from 'react'
 import {auth} from "./firebase";
 import { useNavigate } from 'react-router-dom';
 import { db } from './firebase';
@@ -23,6 +23,20 @@ import peaky1 from './filme/peaky1.webp'
 import peaky2 from './filme/peaky2.jpg'
 import peaky3 from './filme/peaky3.jpg'
 import peaky4 from './filme/peaky4.jpg'
+import peaky5 from './filme/peaky5.jpg'
+
+function Reducer (list, action) {
+    switch(action.type) {
+      case('add'):
+        return [...list, action.payload.name]
+      case('remove'):
+        return list.filter(n => n !== action.payload.name)
+      case('getDb'):
+        return [action.payload.value]
+      default:
+        return []
+    }
+  }
 
 
 export const AuthContext = createContext();
@@ -39,9 +53,10 @@ export function AuthProvider({children}) {
     const [filme, setFilme] = useState()
     const [currentUserName, setCurrentUserName] = useState();
     const [currentPhoto, setCurrentPhoto] = useState();
+    const [list, dispatch] = useReducer(Reducer, [])
     let sliderCount = [0,0,0,0,0]
     // useLocalStorage('currentUser','');
-    const [list, setList] = useState();
+    // const [list, setList] = useState();
     const navigate = useNavigate()
     
     useEffect(() => {
@@ -184,9 +199,7 @@ export function AuthProvider({children}) {
                     const profileListRef = ref(db, 'users/' + userId + '/profile/' + profileKey + '/')
                     onValue(profileListRef, (snapshot) => {
                         if(snapshot.val()[1] != null) {
-                            setList(Object.values(snapshot.val()[1]))
-                        } else {
-                            setList([])
+                            dispatch({type:'getDb',payload:{value: snapshot.val()}})
                         }
                     })
                 }
@@ -237,8 +250,8 @@ export function AuthProvider({children}) {
         })
     }
     function generate () {
-        const random = [peaky1, peaky2, peaky3, peaky4]
-        return random[parseInt(Math.random() * 3)]
+        const random = [peaky1, peaky2, peaky3, peaky4, peaky5]
+        return random[parseInt(Math.random() * 5)]
     }
     const value = {
         currentUser,
@@ -248,7 +261,7 @@ export function AuthProvider({children}) {
         currentPhoto, setCurrentPhoto,
         todos, setTodos,
         photos, setPhotos,
-        list, setList,
+        list, dispatch,
         dbProfile, dbAddProfile,
         dbDeleteProfile, dbChangePhoto,
         filme,dbFilme,dbList, dbUpdateList, test, generate, sliderCount

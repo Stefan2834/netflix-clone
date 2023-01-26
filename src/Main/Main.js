@@ -1,16 +1,16 @@
-import React, { useEffect, useLayoutEffect, useState, useMemo } from 'react'; 
+import React, { useEffect, useLayoutEffect, useState, useReducer } from 'react'; 
 import { useAuth } from '../AuthContext.js';
 import { useNavigate } from 'react-router-dom';
 import NavBar from './NavBar.js';
 import Footer from './Footer.js';
 
+
 const Main = () => {
   const {
     currentUserName,
     list,
-    setList,
     filme,
-    setError,
+    dispatch,
     currentUser,
     dbUpdateList,
     generate, sliderCount
@@ -18,30 +18,27 @@ const Main = () => {
   const navigate = useNavigate()
   const [mainBg, setMainBg] = useState()
   const [collums] = useState([`Sugestii pentru ${currentUserName}`,'Populare Acum','Doar pe Netflix','Seriale aprieciate de critici'])
-
-  
-  const addList = async (name) => {
-    try {
-      await setList(l => [...l, name])
-    } catch (err) {
-      setError(err)
-    }
-  }
-  const removeList = async (name) => {
-    try {
-      await setList(l => l.filter(n => n !== name))
-    } catch (err) {
-      setError(err)
-    }
-  }
+  // const addList = async (name) => {
+  //   try {
+  //     await setList(l => [...l, name])
+  //   } catch (err) {
+  //     setError(err)
+  //   }
+  // }
+  // const removeList = async (name) => {
+  //   try {
+  //     await setList(l => l.filter(n => n !== name))
+  //   } catch (err) {
+  //     setError(err)
+  //   }
+  // }
   useEffect(() => {
     if(!currentUser) {
       navigate('/signup')
     } else {
-      dbUpdateList(currentUser.uid, currentUserName);
+      dbUpdateList(currentUser.uid,currentUserName)
     }
-  }, [list])
-
+  }, [])
   useLayoutEffect(() => {
     setMainBg(generate())
   }, [currentUserName])
@@ -79,7 +76,7 @@ const Main = () => {
           </div>
         </div>
       </div>
-      <>
+      <div className='film'>
       {collums.map((collum,ind) => {
       return (
       <div className="film-row" key={ind}>
@@ -89,7 +86,6 @@ const Main = () => {
         </div>
         <div className="film-container">
           <button className="film-handle film-left-handle" 
-          // style={sliderCount[ind] === 0 ? {visibility:'hidden'} : {visibility:'visible'}}
           onClick={() => {onHandleClick('left',ind,`--slider-index${ind}`)}} 
           >
             <div className="film-text"><i className='fa-solid fa-chevron-left' /></div>
@@ -99,17 +95,20 @@ const Main = () => {
             return (
             <div className='film-img' key={index} >
               <img src={film.poza} alt={film.name} className='film-bg'/>
+              <div className='film-img-absolute'>
+              <img src={film.poza} alt={film.name} className='film-bg'/>
+              {/* <iframe className='film-bg' src={''} title="YouTube video player" frameborder="0" allow="autoplay;" allowfullscreen></iframe> */}
               <div className='film-hover'>
                 <div className='film-flex'>
                   <div className='film-btn-flex'>
                     <div className='film-btn-play'><i className='fa-solid fa-play' /></div>
                     {list.indexOf(film.name) === -1 ? (
-                      <div className='film-btn-add' onClick={() => {addList(film.name)}}>
+                      <div className='film-btn-add' onClick={() => dispatch({type: 'add',payload:{name:film.name}})}>
                         <div className='film-add-absolute' >Adaugare in Lista mea</div>
                         <i className='fa-solid fa-plus' />
                       </div>
                       ) : (
-                      <div className='film-btn-add' onClick={() => {removeList(film.name)}}>
+                      <div className='film-btn-add' onClick={() => dispatch({type: 'remove',payload:{name:film.name,}})}>
                         <div className='film-add-absolute' >Stergere din Lista mea</div>
                         <i className='fa-solid fa-check' />
                       </div>
@@ -128,6 +127,7 @@ const Main = () => {
                   </div>
                 </div>
               </div>
+              </div>
             </div>
             )
           })}
@@ -140,12 +140,10 @@ const Main = () => {
         </div>
       </div>
       )})}
-      </>
+      </div>
     </div>
     <Footer />
     </>
   )
 }
-
-
 export default Main
