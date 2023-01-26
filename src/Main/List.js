@@ -18,7 +18,7 @@ export default function List() {
     if(!currentUser) {
       navigate('/signup')
     } else {
-      dbUpdateList(currentUser.uid, currentUserName)
+      dbUpdateList(currentUser.uid,currentUserName)
     }
   
   }, [list])

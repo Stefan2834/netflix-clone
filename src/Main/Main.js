@@ -38,7 +38,7 @@ const Main = () => {
     } else {
       dbUpdateList(currentUser.uid,currentUserName)
     }
-  }, [])
+  }, [list])
   useLayoutEffect(() => {
     setMainBg(generate())
   }, [currentUserName])

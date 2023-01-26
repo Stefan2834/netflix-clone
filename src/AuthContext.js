@@ -32,9 +32,8 @@ function Reducer (list, action) {
       case('remove'):
         return list.filter(n => n !== action.payload.name)
       case('getDb'):
-        return [action.payload.value]
+        return action.payload.value
       default:
-        return []
     }
   }
 
@@ -217,7 +216,7 @@ export function AuthProvider({children}) {
                 if(name === listData[0]) {
                     const updates = {};
                     console.log(list);
-                    updates['users/' + userId + '/profile/' + listKey + '/'] = [name,  ...list];
+                    updates['users/' + userId + '/profile/' + listKey + '/'] = [name,  list];
                     update(ref(db), updates)
                 }
             })
