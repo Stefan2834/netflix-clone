@@ -199,7 +199,7 @@ export function AuthProvider({children}) {
                     const profileListRef = ref(db, 'users/' + userId + '/profile/' + profileKey + '/')
                     onValue(profileListRef, (snapshot) => {
                         if(snapshot.val()[1] != null) {
-                            dispatch({type:'getDb',payload:{value: snapshot.val()}})
+                            dispatch({type:'getDb',payload:{value: snapshot.val()[1]}})
                         }
                     })
                 }
@@ -216,7 +216,8 @@ export function AuthProvider({children}) {
                 const listData = childSnapshot.val();
                 if(name === listData[0]) {
                     const updates = {};
-                    updates['users/' + userId + '/profile/' + listKey + '/'] = [name,  list];
+                    console.log(list);
+                    updates['users/' + userId + '/profile/' + listKey + '/'] = [name,  ...list];
                     update(ref(db), updates)
                 }
             })
