@@ -55,7 +55,6 @@ export function AuthProvider({children}) {
     const [list, dispatch] = useReducer(Reducer, [])
     let sliderCount = [0,0,0,0,0]
     // useLocalStorage('currentUser','');
-    // const [list, setList] = useState();
     const navigate = useNavigate()
     
     useEffect(() => {
@@ -215,7 +214,6 @@ export function AuthProvider({children}) {
                 const listData = childSnapshot.val();
                 if(name === listData[0]) {
                     const updates = {};
-                    console.log(list);
                     updates['users/' + userId + '/profile/' + listKey + '/'] = [name,  list];
                     update(ref(db), updates)
                 }

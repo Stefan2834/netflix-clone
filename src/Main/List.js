@@ -12,14 +12,13 @@ export default function List() {
   } = useAuth()
   const navigate = useNavigate()
   useEffect(() => {
-    if (!currentUserName) {
-      navigate('/')
-    } 
     if(!currentUser) {
       navigate('/signup')
-    } else {
+    } else if (!currentUserName){
+      navigate('/')
+    } else{
       dbUpdateList(currentUser.uid,currentUserName)
-    }
+    } 
   
   }, [list])
   return (
@@ -34,7 +33,7 @@ export default function List() {
             <div className="film-text"></div>
           </button>
           <div className="film-slider slider1 list-slider">
-          {list != null && (
+          {filme != null && (
           filme.map((film, index) => {
             if(list.indexOf(film.name) !== -1) {
               return (

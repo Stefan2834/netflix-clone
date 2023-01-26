@@ -18,20 +18,6 @@ const Main = () => {
   const navigate = useNavigate()
   const [mainBg, setMainBg] = useState()
   const [collums] = useState([`Sugestii pentru ${currentUserName}`,'Populare Acum','Doar pe Netflix','Seriale aprieciate de critici'])
-  // const addList = async (name) => {
-  //   try {
-  //     await setList(l => [...l, name])
-  //   } catch (err) {
-  //     setError(err)
-  //   }
-  // }
-  // const removeList = async (name) => {
-  //   try {
-  //     await setList(l => l.filter(n => n !== name))
-  //   } catch (err) {
-  //     setError(err)
-  //   }
-  // }
   useEffect(() => {
     if(!currentUser) {
       navigate('/signup')
@@ -42,9 +28,6 @@ const Main = () => {
   useLayoutEffect(() => {
     setMainBg(generate())
   }, [currentUserName])
-  const filmMargin = (e) => {
-    // console.log(e.target.style)
-  }
   function onHandleClick(data,index,slider) {
     let itemScreen = getComputedStyle(document.documentElement).getPropertyValue('--items-per-screen')
     let maxSlide = filme.length / itemScreen;
@@ -95,10 +78,10 @@ const Main = () => {
           <div className={`film-slider slider${ind}`}>
           {filme.map((film, index) => {
             return (
-            <div className='film-img' key={index}>
+            <div className='film-img'>
               <img src={film.poza} alt={film.name} className='film-bg'/>
-              <div className='film-img-absolute'>
-              <img src={film.poza} alt={film.name} className='film-bg' onMouseEnter={filmMargin}/>
+              <div className='film-img-absolute' key={index}>
+              <img src={film.poza} alt={film.name} className='film-bg'/>
               {/* <iframe className='film-bg' src={''} title="YouTube video player" frameborder="0" allow="autoplay;" allowfullscreen></iframe> */}
               <div className='film-hover'>
                 <div className='film-flex'>
