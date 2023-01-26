@@ -285,6 +285,7 @@
   flex-direction: column;
   z-index:1;
   flex-wrap: wrap;
+  margin-top:100px;
 }
 .footer-icon {
   width:1000px;
@@ -371,7 +372,6 @@ i.fa-facebook-f, i.fa-instagram, i.fa-youtube {
 
 .main-bg {
   height:auto;
-  padding-bottom:50px;
   overflow: hidden;
   z-index:3;
   position: relative;
@@ -473,6 +473,10 @@ i.fa-facebook-f, i.fa-instagram, i.fa-youtube {
 .film-row {
   transform: translate(0, -75%);
 }
+.film-row:hover {
+  z-index:5;
+  position: relative;
+}
 .film-container {
   display: flex;
   justify-content: center;
@@ -482,7 +486,6 @@ i.fa-facebook-f, i.fa-instagram, i.fa-youtube {
   position: relative;
   width:100%;
 }
-
 .film-slider {
   display: flex;
   flex-grow: 1;
@@ -508,18 +511,18 @@ i.fa-facebook-f, i.fa-instagram, i.fa-youtube {
   padding: var(--img-gap);
   cursor:pointer;
   transition:400ms ease;
-  position: relative;
 }
 .film-img:hover {
   scale: 1.4;
   translate:0 -50% ;
-  z-index:2;
+  z-index:4;
   transition-delay: 400ms;
 }
 .film-img:hover .film-bg {
   border-bottom-left-radius: 0;
   transition-delay: 400ms;
   border-bottom-right-radius: 0;
+  z-index:4;
 }
 
 .film-handle {
